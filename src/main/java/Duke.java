@@ -19,7 +19,13 @@ public class Duke {
     public static void printTaskList(){
         for (int i = 0; i < list.getSize(); i++) {
             Task t = list.getTask(i);
-            System.out.println((i + 1) + ". " + t.getTitle());
+            System.out.print((i + 1) + ". [");
+            if(t.getDone()){
+                System.out.print("*");
+            }else{
+                System.out.print(" ");
+            }
+            System.out.println("] " + t.getTitle());
         }
     }
 
@@ -38,6 +44,15 @@ public class Duke {
             } else if(input.toLowerCase().equals("list")){
                 printTaskList();
                 continue;
+            }else if (input.toLowerCase().startsWith("done")){
+                try {
+                    int indexToMark = Integer.parseInt(input.substring(5)) - 1;
+                    list.markTaskDone(indexToMark);
+                }catch (NumberFormatException e){
+                    System.out.println("Incorrectly formatted input");
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("Task does not exist in list");
+                }
             }else {
                 addTask(input);
                 System.out.println("Added task: " + input);
