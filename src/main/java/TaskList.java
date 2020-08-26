@@ -15,12 +15,19 @@ public class TaskList {
         tasks.add(t);
     }
 
-    public int deleteTask(int index){
-        try {
-            tasks.remove(index);
-            return 0;
-        } catch(IndexOutOfBoundsException e){
-            return 1;
-        }
+    public void deleteTask (int index) throws IndexOutOfBoundsException{
+        tasks.remove(index);
+    }
+
+    public void markTaskDone(int index) throws IndexOutOfBoundsException{
+        tasks.get(index).setDone();
+    }
+
+    public int getSize(){
+        return tasks.size();
+    }
+
+    public Task getTask(int index){
+        return tasks.get(index);
     }
 }
