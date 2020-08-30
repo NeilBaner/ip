@@ -4,7 +4,6 @@ public class Duke {
     public static TaskList list = new TaskList();
 
 
-
     public static void printTaskList() {
         Messages.printHorizontalLine();
         if (list.getSize() == 0) {

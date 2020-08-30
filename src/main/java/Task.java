@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public Task(String title){
+    public Task(String title) {
         this.title = title;
         this.description = "";
         this.isDone = false;
@@ -23,7 +23,7 @@ public class Task {
         return description;
     }
 
-    public boolean getDone(){
+    public boolean getDone() {
         return isDone;
     }
 
@@ -35,11 +35,11 @@ public class Task {
         this.description = description;
     }
 
-    public void setDone(){
+    public void setDone() {
         isDone = true;
     }
 
-    public void setNotDone(){
+    public void setNotDone() {
         isDone = false;
     }
 
