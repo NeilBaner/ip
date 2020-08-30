@@ -23,23 +23,16 @@ public class Duke {
         if (list.getSize() == 0) {
             System.out.println("No tasks added yet");
         }
-        for (int i = 0; i < list.getSize(); i++) {
-            Task t = list.getTask(i);
-            System.out.print((i + 1) + ". [");
-            if (t.getDone()) {
-                System.out.print("*");
-            } else {
-                System.out.print(" ");
-            }
-            System.out.println("] " + t.getTitle());
+        for (Task task: list.getAllTasks()) {
+            task.print();
         }
         printHorizontalLine();
     }
 
-    public static void addTask(String title) {
-        list.addTask(new Task(title));
+    public static void addToDo(String title) {
+        list.addTask(new ToDo(title));
         printHorizontalLine();
-        System.out.println("Added new task: " + title);
+        System.out.println("Done. I've added the following to-do to your list: " + title);
         printHorizontalLine();
     }
 
@@ -53,14 +46,17 @@ public class Duke {
     public static void main(String[] args) {
         Scanner k = new Scanner(System.in);
         String input;
+        boolean toContinue = true;
         printHello();
-        while (true) {
+        while (toContinue) {
             input = k.nextLine();
             if (input.toLowerCase().equals("bye")) {
-                break;
+                toContinue = false;
+                printHorizontalLine();
+                printGoodBye();
+                printHorizontalLine();
             } else if (input.toLowerCase().equals("list")) {
                 printTaskList();
-                continue;
             } else if (input.toLowerCase().startsWith("done")) {
                 try {
                     int indexToMark = Integer.parseInt(input.substring(5)) - 1;
@@ -72,13 +68,10 @@ public class Duke {
                     System.out.println("Task does not exist in list");
                     printHorizontalLine();
                 }
-            } else {
-                addTask(input);
-                continue;
+            } else if (input.toLowerCase().startsWith("todo")){
+                addToDo(input.substring(5));
             }
         }
-        printHorizontalLine();
-        printGoodBye();
-        printHorizontalLine();
+
     }
 }
