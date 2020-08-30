@@ -15,7 +15,7 @@ public class Event extends Task {
     public void print() {
         System.out.print("[E]");
         super.print();
-        System.out.print(" at " + eventTime);
+        System.out.print(", at " + eventTime);
         System.out.println();
     }
 }
