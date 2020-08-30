@@ -23,7 +23,7 @@ public class Duke {
         if (list.getSize() == 0) {
             System.out.println("No tasks added yet");
         }
-        for (Task task: list.getAllTasks()) {
+        for (Task task : list.getAllTasks()) {
             task.print();
         }
         printHorizontalLine();
@@ -33,6 +33,20 @@ public class Duke {
         list.addTask(new ToDo(title));
         printHorizontalLine();
         System.out.println("Done. I've added the following to-do to your list: " + title);
+        printHorizontalLine();
+    }
+
+    public static void addEvent(String title, String eventTime) {
+        list.addTask(new Event(title, eventTime));
+        printHorizontalLine();
+        System.out.println("Roger dodger chief. I've added this event to your list: " + title);
+        printHorizontalLine();
+    }
+
+    public static void addDeadline(String title, String dueDate) {
+        list.addTask(new Deadline(title, dueDate));
+        printHorizontalLine();
+        System.out.println("You got it. Added a new deadline to your list, titled : " + title);
         printHorizontalLine();
     }
 
@@ -68,10 +82,25 @@ public class Duke {
                     System.out.println("Task does not exist in list");
                     printHorizontalLine();
                 }
-            } else if (input.toLowerCase().startsWith("todo")){
+            } else if (input.toLowerCase().startsWith("todo")) {
                 addToDo(input.substring(5));
+            } else if (input.toLowerCase().startsWith("deadline")) {
+                try {
+                    String title = input.substring(9, input.indexOf("/by")).strip();
+                    String dueDate = input.substring(input.indexOf("/by") + 4).strip();
+                    addDeadline(title, dueDate);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Incorrectly formatted input");
+                }
+            } else if (input.startsWith("event")) {
+                try {
+                    String title = input.substring(6, input.indexOf("/at")).strip();
+                    String eventTime = input.substring(input.indexOf("/at") + 4).strip();
+                    addEvent(title, eventTime);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Incorrectly formatted input");
+                }
             }
         }
-
     }
 }
