@@ -10,4 +10,12 @@ public class Event extends Task {
         super(title, description);
         this.eventTime = eventTime;
     }
+
+    @Override
+    public void print() {
+        System.out.print("[E]");
+        super.print();
+        System.out.print(" at " + eventTime);
+        System.out.println();
+    }
 }

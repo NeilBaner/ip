@@ -42,4 +42,8 @@ public class Task {
     public void setNotDone(){
         isDone = false;
     }
+
+    public void print() {
+        System.out.print("[" + (isDone ? "*" : " ") + "] " + title);
+    }
 }
