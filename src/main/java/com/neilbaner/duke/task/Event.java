@@ -1,4 +1,4 @@
-package com.neilbaner.duke;
+package com.neilbaner.duke.task;
 
 public class Event extends Task {
     private String eventTime;

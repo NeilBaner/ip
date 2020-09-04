@@ -1,4 +1,4 @@
-package com.neilbaner.duke;
+package com.neilbaner.duke.task;
 
 public class Task {
     private String title;

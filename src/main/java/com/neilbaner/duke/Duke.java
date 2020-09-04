@@ -1,8 +1,12 @@
+package com.neilbaner.duke;
+
+import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.task.*;
+
 import java.util.Scanner;
 
 public class Duke {
     public static TaskList list = new TaskList();
-
 
     public static void printTaskList() {
         Messages.printHorizontalLine();

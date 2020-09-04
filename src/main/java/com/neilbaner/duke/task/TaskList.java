@@ -1,6 +1,4 @@
-package com.neilbaner.duke;
-
-import com.neilbaner.duke.task.Task;
+package com.neilbaner.duke.task;
 
 import java.util.ArrayList;
 

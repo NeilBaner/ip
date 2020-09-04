@@ -1,4 +1,4 @@
-package com.neilbaner.duke;
+package com.neilbaner.duke.messages;
 
 public class Messages {
     public static void printHorizontalLine() {
