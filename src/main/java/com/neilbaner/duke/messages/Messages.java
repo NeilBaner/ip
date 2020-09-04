@@ -1,3 +1,5 @@
+package com.neilbaner.duke;
+
 public class Messages {
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
@@ -47,7 +49,7 @@ public class Messages {
     }
 
     public static void printNonExistError() {
-        System.out.println("Task does not exist in list");
+        System.out.println("com.neilbaner.duke.task.Task does not exist in list");
         Messages.printHorizontalLine();
     }
 }

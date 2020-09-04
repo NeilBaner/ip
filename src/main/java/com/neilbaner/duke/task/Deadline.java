@@ -1,4 +1,4 @@
-public class Deadline extends Task {
+package com.neilbaner.duke;public class Deadline extends Task {
     private String dueDate;
 
     public Deadline(String title, String dueDate) {
