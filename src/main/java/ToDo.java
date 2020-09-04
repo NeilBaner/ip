@@ -8,9 +8,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void print() {
-        System.out.print("[T]");
-        super.print();
-        System.out.println();
+    public String toString() {
+        return "[T]" + super.toString();
     }
 }

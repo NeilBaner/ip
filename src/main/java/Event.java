@@ -12,10 +12,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void print() {
-        System.out.print("[E]");
-        super.print();
-        System.out.print(", at " + eventTime);
-        System.out.println();
+    public String toString() {
+        return "[E]" + super.toString() + ", at " + eventTime;
     }
 }

@@ -10,7 +10,7 @@ public class Duke {
             System.out.println("No tasks added yet");
         }
         for (Task task : list.getAllTasks()) {
-            task.print();
+            System.out.println(task.toString());
         }
         Messages.printHorizontalLine();
     }

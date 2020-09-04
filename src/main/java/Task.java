@@ -43,7 +43,8 @@ public class Task {
         isDone = false;
     }
 
-    public void print() {
-        System.out.print("[" + (isDone ? "*" : " ") + "] " + title);
+    @Override
+    public String toString() {
+        return "[" + (isDone ? "*" : " ") + "] " + title;
     }
 }

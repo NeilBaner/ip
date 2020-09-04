@@ -12,10 +12,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void print() {
-        System.out.print("[D]");
-        super.print();
-        System.out.print(", by " + dueDate);
-        System.out.println();
+    public String toString() {
+        return "[D]" + super.toString() + ", by " + dueDate;
     }
 }
