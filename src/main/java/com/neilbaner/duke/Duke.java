@@ -1,5 +1,6 @@
 package com.neilbaner.duke;
 
+import com.neilbaner.duke.exceptions.*;
 import com.neilbaner.duke.messages.Messages;
 import com.neilbaner.duke.task.*;
 
@@ -59,11 +60,10 @@ public class Duke {
         return input.substring(9, input.indexOf("/by")).strip();
     }
 
-    private static boolean parseInput(String input) {
-        boolean toContinue = true;
+    private static boolean parseInput(String input) throws DukeException {
         if (input.toLowerCase().equals("bye")) {
-            toContinue = false;
             Messages.printGoodBye();
+            return false;
         } else if (input.toLowerCase().equals("list")) {
             printTaskList();
         } else if (input.toLowerCase().startsWith("done")) {
@@ -73,7 +73,7 @@ public class Duke {
             } catch (NumberFormatException e) {
                 Messages.printFormattingError();
             } catch (IndexOutOfBoundsException e) {
-                Messages.printNonExistError();
+                throw new TaskIndexOutOfBoundsException();
             }
         } else if (input.toLowerCase().startsWith("todo")) {
             addToDo(input.substring(5));
@@ -81,6 +81,9 @@ public class Duke {
             try {
                 String title = getDeadlineTitle(input);
                 String dueDate = getDeadlineDueDate(input);
+                if (dueDate == "") {
+                    throw new BlankDeadlineDateException();
+                }
                 addDeadline(title, dueDate);
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
@@ -89,12 +92,17 @@ public class Duke {
             try {
                 String title = getEventTitle(input);
                 String eventTime = getEventTime(input);
+                if (eventTime == "") {
+                    throw new BlankEventTimeException();
+                }
                 addEvent(title, eventTime);
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
+        } else {
+            throw new UnknownCommandException();
         }
-        return toContinue;
+        return true;
     }
 
     public static void main(String[] args) {
@@ -104,7 +112,11 @@ public class Duke {
         Messages.printHello();
         while (toContinue) {
             input = k.nextLine();
-            toContinue = parseInput(input);
+            try {
+                toContinue = parseInput(input);
+            } catch (DukeException e) {
+                e.printErrorMessage(input);
+            }
         }
     }
 }
