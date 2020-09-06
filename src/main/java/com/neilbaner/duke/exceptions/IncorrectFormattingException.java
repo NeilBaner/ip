@@ -2,13 +2,13 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.Messages;
 
-public class BlankEventTimeException extends DukeException{
-    public BlankEventTimeException() {
+public class IncorrectFormattingException extends DukeException{
+    public IncorrectFormattingException() {
         super();
     }
 
     @Override
     public void printErrorMessage(String command) {
-        Messages.printBlankEventTime();
+
     }
 }
