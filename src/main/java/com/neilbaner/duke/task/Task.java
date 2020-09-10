@@ -1,6 +1,6 @@
 package com.neilbaner.duke.task;
 
-public class Task {
+public abstract class Task {
     private String title;
     private String description;
     private boolean isDone;
