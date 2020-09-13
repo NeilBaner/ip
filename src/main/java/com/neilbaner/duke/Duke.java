@@ -14,7 +14,7 @@ public class Duke {
         if (list.getSize() == 0) {
             System.out.println("No tasks added yet");
         }
-        for (Task task : list.getAllTasks()) {
+        for (Task task : list.getAllTasksList()) {
             System.out.println(task.toString());
         }
         Messages.printHorizontalLine();
@@ -35,7 +35,7 @@ public class Duke {
         Messages.printAddedDeadline(title);
     }
 
-    public static void markDone(int indexToMark) throws NumberFormatException, IndexOutOfBoundsException {
+    public static void markAsDone(int indexToMark) throws NumberFormatException, IndexOutOfBoundsException {
         list.markTaskDone(indexToMark);
         Messages.printMarkedDone(list.getTask(indexToMark).getTitle());
     }
@@ -61,23 +61,24 @@ public class Duke {
     }
 
     private static boolean parseInput(String input) throws DukeException {
-        if (input.toLowerCase().equals("bye")) {
+        String lowerCaseInput = input.toLowerCase();
+        if (lowerCaseInput.equals("bye")) {
             Messages.printGoodBye();
             return false;
-        } else if (input.toLowerCase().equals("list")) {
+        } else if (lowerCaseInput.equals("list")) {
             printTaskList();
-        } else if (input.toLowerCase().startsWith("done")) {
+        } else if (lowerCaseInput.startsWith("done")) {
             try {
                 int indexToMark = getIndexToMark(input);
-                markDone(indexToMark);
+                markAsDone(indexToMark);
             } catch (NumberFormatException e) {
                 Messages.printFormattingError();
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException();
             }
-        } else if (input.toLowerCase().startsWith("todo")) {
+        } else if (lowerCaseInput.startsWith("todo")) {
             addToDo(input.substring(5));
-        } else if (input.toLowerCase().startsWith("deadline")) {
+        } else if (lowerCaseInput.startsWith("deadline")) {
             try {
                 String title = getDeadlineTitle(input);
                 String dueDate = getDeadlineDueDate(input);

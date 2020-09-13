@@ -9,7 +9,7 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
-    public ArrayList<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasksList() {
         return tasks;
     }
 
