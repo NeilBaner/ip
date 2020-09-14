@@ -55,20 +55,26 @@ public class Messages {
     }
 
     public static void printAddedToDo(String title) {
+        String confirmation = MessageGenerator.generateConfirmationMessage();
         printHorizontalLine();
-        System.out.println("Done. I've added the following to-do to your list: " + title);
+        System.out.print(confirmation);
+        System.out.println("I've added the following to-do to your list: " + title);
         printHorizontalLine();
     }
 
     public static void printAddedEvent(String title) {
+        String confirmation = MessageGenerator.generateConfirmationMessage();
         printHorizontalLine();
-        System.out.println("Roger dodger chief. I've added this event to your list: " + title);
+        System.out.print(confirmation);
+        System.out.println("I've added this event to your list: " + title);
         printHorizontalLine();
     }
 
     public static void printAddedDeadline(String title) {
+        String confirmation = MessageGenerator.generateConfirmationMessage();
         printHorizontalLine();
-        System.out.println("You got it. Added a new deadline to your list, titled : " + title);
+        System.out.print(confirmation);
+        System.out.println("Added a new deadline to your list, titled : " + title);
         printHorizontalLine();
     }
 
