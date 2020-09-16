@@ -2,7 +2,7 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.Messages;
 
-public class BlankEventTimeException extends DukeException{
+public class BlankEventTimeException extends DukeException {
     public BlankEventTimeException() {
         super();
     }

@@ -2,7 +2,7 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.Messages;
 
-public class BlankTaskTitleException extends DukeException{
+public class BlankTaskTitleException extends DukeException {
     public BlankTaskTitleException() {
         super();
     }
