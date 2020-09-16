@@ -40,6 +40,12 @@ public class Duke {
         Messages.printMarkedDone(list.getTask(indexToMark).getTitle());
     }
 
+    public static void deleteTask(int indexToDelete) {
+        String deletedTitle = list.getTask(indexToDelete).toString();
+        list.deleteTask(indexToDelete);
+        Messages.printDeleted(deletedTitle);
+    }
+
     private static String getEventTime(String input) {
         return input.substring(input.indexOf("/at") + 4).strip();
     }
@@ -76,13 +82,22 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException();
             }
+        } else if (lowerCaseInput.startsWith("delete")) {
+            try {
+                int indexToDelete = getIndexToMark(input);
+                deleteTask(indexToDelete);
+            } catch (NumberFormatException e) {
+                Messages.printFormattingError();
+            } catch (IndexOutOfBoundsException e) {
+                throw new TaskIndexOutOfBoundsException();
+            }
         } else if (lowerCaseInput.startsWith("todo")) {
             addToDo(input.substring(5));
         } else if (lowerCaseInput.startsWith("deadline")) {
             try {
                 String title = getDeadlineTitle(input);
                 String dueDate = getDeadlineDueDate(input);
-                if (dueDate == "") {
+                if (dueDate.equals("")) {
                     throw new BlankDeadlineDateException();
                 }
                 addDeadline(title, dueDate);
@@ -93,7 +108,7 @@ public class Duke {
             try {
                 String title = getEventTitle(input);
                 String eventTime = getEventTime(input);
-                if (eventTime == "") {
+                if (eventTime.equals("")) {
                     throw new BlankEventTimeException();
                 }
                 addEvent(title, eventTime);
