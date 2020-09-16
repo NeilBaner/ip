@@ -17,4 +17,8 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + ", at " + eventTime;
     }
+
+    public String getEventTime() {
+        return eventTime;
+    }
 }
