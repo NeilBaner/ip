@@ -79,8 +79,18 @@ public class Messages {
     }
 
     public static void printMarkedDone(String title) {
+        String confirmation = MessageGenerator.generateConfirmationMessage();
         printHorizontalLine();
+        System.out.print(confirmation);
         System.out.println(title + " marked as done.");
+        printHorizontalLine();
+    }
+
+    public static void printDeleted(String title) {
+        String confirmation = MessageGenerator.generateConfirmationMessage();
+        printHorizontalLine();
+        System.out.print(confirmation);
+        System.out.println(title + " deleted. ");
         printHorizontalLine();
     }
 
