@@ -13,6 +13,10 @@ public class TaskList {
         return tasks;
     }
 
+    public void loadTasks(ArrayList<Task> taskList) {
+        tasks = taskList;
+    }
+
     public void addTask(Task t) {
         tasks.add(t);
     }
