@@ -22,9 +22,9 @@ public class Duke {
             fs.close();
             list.loadTasks(Serializer.deserializeTaskList(save));
         } catch (FileNotFoundException e) {
-            System.out.println("Couldn't load the save file. Proceeding without loading.");
+            System.err.println("Couldn't load the save file. Proceeding without loading.");
         } catch (DeserializerException e) {
-            System.out.println("Some error in the save file. ");
+            System.err.println("Some error trying to parse the save file. Proceeding without loading. ");
         }
 
     }
@@ -82,6 +82,10 @@ public class Duke {
         return Integer.parseInt(input.substring(5)) - 1;
     }
 
+    private static int getIndexToDelete(String input) {
+        return Integer.parseInt(input.substring(7)) - 1;
+    }
+
     private static String getDeadlineTitle(String input) {
         return input.substring(9, input.indexOf("/by")).strip();
     }
@@ -99,7 +103,7 @@ public class Duke {
             try{
                 saveState();
             }catch (IOException e) {
-                System.out.println("Error saving the state.");
+                System.err.println("Error saving the state. Your data was not saved.");
             }
             return false;
         } else if (lowerCaseInput.equals("list")) {
@@ -115,7 +119,7 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith("delete")) {
             try {
-                int indexToDelete = getIndexToMark(input);
+                int indexToDelete = getIndexToDelete(input);
                 deleteTask(indexToDelete);
             } catch (NumberFormatException e) {
                 Messages.printFormattingError();
