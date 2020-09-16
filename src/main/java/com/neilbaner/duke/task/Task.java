@@ -1,9 +1,9 @@
 package com.neilbaner.duke.task;
 
 public abstract class Task {
-    private String title;
-    private String description;
-    private boolean isDone;
+    protected String title;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String title, String description) {
         this.title = title;
@@ -21,20 +21,20 @@ public abstract class Task {
         return title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean getDone() {
-        return isDone;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean getDone() {
+        return isDone;
     }
 
     public void setDone() {
