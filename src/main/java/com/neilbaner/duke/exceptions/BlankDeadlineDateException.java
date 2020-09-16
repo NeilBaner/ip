@@ -2,7 +2,7 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.Messages;
 
-public class BlankDeadlineDateException extends DukeException{
+public class BlankDeadlineDateException extends DukeException {
     public BlankDeadlineDateException() {
         super();
     }
