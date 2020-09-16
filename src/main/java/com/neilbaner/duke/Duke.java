@@ -2,12 +2,32 @@ package com.neilbaner.duke;
 
 import com.neilbaner.duke.exceptions.*;
 import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.serialize.Serializer;
 import com.neilbaner.duke.task.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static TaskList list = new TaskList();
+
+    private static void loadTasks() {
+        File saveFile = new File("dukesave.txt");
+        try {
+            Scanner fs = new Scanner(saveFile);
+            String save = fs.nextLine();
+            fs.close();
+            list.loadTasks(Serializer.deserializeTaskList(save));
+        } catch (FileNotFoundException e) {
+            System.out.println("Couldn't load the save file. Proceeding without loading.");
+        } catch (DeserializerException e) {
+            System.out.println("Some error in the save file. ");
+        }
+
+    }
 
     public static void printTaskList() {
         Messages.printHorizontalLine();
@@ -66,10 +86,21 @@ public class Duke {
         return input.substring(9, input.indexOf("/by")).strip();
     }
 
+    private static void saveState() throws IOException {
+        FileWriter fw = new FileWriter("dukesave.txt", false);
+        fw.write(Serializer.serializeTaskList(list));
+        fw.close();
+    }
+
     private static boolean parseInput(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
         if (lowerCaseInput.equals("bye")) {
             Messages.printGoodBye();
+            try{
+                saveState();
+            }catch (IOException e) {
+                System.out.println("Error saving the state.");
+            }
             return false;
         } else if (lowerCaseInput.equals("list")) {
             printTaskList();
@@ -122,6 +153,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        loadTasks();
         Scanner k = new Scanner(System.in);
         String input;
         boolean toContinue = true;
