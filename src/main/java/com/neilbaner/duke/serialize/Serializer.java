@@ -21,7 +21,6 @@ public class Serializer {
     public static ArrayList<Task> deserializeTaskList(String s) throws DeserializerException {
         ArrayList<Task> taskList = new ArrayList<Task>();
         String[] tasks = s.split("~~");
-        System.out.println(tasks.length);
         for (int i = 0; i < tasks.length; i++) {
             taskList.add(deserializeTask(tasks[i]));
         }
@@ -48,9 +47,7 @@ public class Serializer {
     public static Task deserializeTask(String s) throws DeserializerException {
         String parts[];
         Task deserialized;
-        System.out.println(s);
         parts = s.split("~");
-        System.out.println(parts.length);
         if (parts[0].equals("T")) {
             deserialized = new ToDo(parts[1]);
             if (parts[2].equals("Y")) {
