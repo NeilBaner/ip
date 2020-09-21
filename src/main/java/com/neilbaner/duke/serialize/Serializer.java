@@ -28,6 +28,8 @@ import java.util.ArrayList;
  * @author neilbaner
  */
 public class Serializer {
+    private static final String TASK_DELIMITER = "\n";
+    private static final String PART_DELIMITER = "~";
     /**
      * Takes in an object of type TaskList and returns a String
      * which can then be written to a file or used otherwise.
@@ -38,9 +40,8 @@ public class Serializer {
         String serialized = "";
         for (Task t : tl.getAllTasksList()) {
             serialized += serializeTask(t);
-            serialized += "~~";
+            serialized += TASK_DELIMITER;
         }
-        serialized = serialized.substring(0, serialized.length() - 2);
         return serialized;
     }
 
@@ -53,7 +54,7 @@ public class Serializer {
      */
     public static ArrayList<Task> deserializeTaskList(String s) throws DeserializerException {
         ArrayList<Task> taskList = new ArrayList<Task>();
-        String[] tasks = s.split("~~");
+        String[] tasks = s.split(TASK_DELIMITER);
         for (int i = 0; i < tasks.length; i++) {
             taskList.add(deserializeTask(tasks[i]));
         }
@@ -70,15 +71,15 @@ public class Serializer {
         Type taskType = t.getClass();
         String serialized = "";
         if (taskType == ToDo.class) {
-            serialized += "T~";
+            serialized += "T" + PART_DELIMITER;
         } else if (taskType == Event.class) {
-            serialized += "E~";
-            serialized += ((Event) t).getEventTime() + "~";
+            serialized += "E" + PART_DELIMITER;
+            serialized += ((Event) t).getEventTime() + PART_DELIMITER;
         } else if (taskType == Deadline.class) {
-            serialized += "D~";
-            serialized += ((Deadline) t).getDueDate() + "~";
+            serialized += "D" + PART_DELIMITER;
+            serialized += ((Deadline) t).getDueDate() + PART_DELIMITER;
         }
-        serialized += t.getTitle() + "~";
+        serialized += t.getTitle() + PART_DELIMITER;
         serialized += (t.getDone()) ? "Y" : "N";
         return serialized;
     }
@@ -93,7 +94,7 @@ public class Serializer {
     public static Task deserializeTask(String s) throws DeserializerException {
         String parts[];
         Task deserialized;
-        parts = s.split("~");
+        parts = s.split(PART_DELIMITER);
         try {
             if (parts[0].equals("T")) {
                 deserialized = new ToDo(parts[1]);
