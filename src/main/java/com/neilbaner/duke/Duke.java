@@ -18,9 +18,12 @@ public class Duke {
         File saveFile = new File("dukesave.txt");
         try {
             Scanner fs = new Scanner(saveFile);
-            String save = fs.nextLine();
+            while(fs.hasNext()) {
+                String currentLine = fs.nextLine();
+                Task currentTask = Serializer.deserializeTask(currentLine);
+                list.addTask(currentTask);
+            }
             fs.close();
-            list.loadTasks(Serializer.deserializeTaskList(save));
         } catch (FileNotFoundException e) {
             System.err.println("Couldn't load the save file. Proceeding without loading.");
         } catch (DeserializerException e) {
