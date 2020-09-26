@@ -40,7 +40,8 @@ public class TaskList {
     public ArrayList<Task> searchTasksResults(String searchKey) {
         ArrayList<Task> results = new ArrayList<Task>();
         for(Task t: tasks) {
-            if(t.getTitle().contains(searchKey)) {
+            String lowerCaseTitle = t.getTitle().toLowerCase();
+            if(lowerCaseTitle.contains(searchKey)) {
                 results.add(t);
             }
         }
