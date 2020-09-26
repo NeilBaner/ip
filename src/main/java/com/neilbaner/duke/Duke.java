@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -38,6 +39,17 @@ public class Duke {
             System.out.println("No tasks added yet");
         }
         for (Task task : list.getAllTasksList()) {
+            System.out.println(task.toString());
+        }
+        Messages.printHorizontalLine();
+    }
+
+    public static void printTaskList(ArrayList<Task> taskArrayList) {
+        Messages.printHorizontalLine();
+        if (taskArrayList.size() == 0) {
+            System.out.println("No tasks added yet");
+        }
+        for (Task task : taskArrayList) {
             System.out.println(task.toString());
         }
         Messages.printHorizontalLine();
@@ -93,6 +105,10 @@ public class Duke {
         return input.substring(9, input.indexOf("/by")).strip();
     }
 
+    private static String getSearchKey(String input) {
+        return input.substring(5);
+    }
+
     private static void saveState() throws IOException {
         FileWriter fw = new FileWriter("dukesave.txt", false);
         fw.write(Serializer.serializeTaskList(list));
@@ -142,7 +158,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
-        } else if (input.startsWith("event")) {
+        } else if (lowerCaseInput.startsWith("event")) {
             try {
                 String title = getEventTitle(input);
                 String eventTime = getEventTime(input);
@@ -153,7 +169,17 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
-        } else {
+        } else if (lowerCaseInput.startsWith("find")) {
+            try {
+                String searchKey = getSearchKey(input);
+                ArrayList<Task> searchResults = list.searchTasksResults(searchKey);
+                printTaskList(searchResults);
+            }catch (IndexOutOfBoundsException e) {
+                Messages.printFormattingError();
+            }
+        }
+
+        else {
             throw new UnknownCommandException();
         }
         return true;
