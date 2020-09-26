@@ -77,7 +77,7 @@ public class Serializer {
             serialized += ((Event) t).getEventTime() + PART_DELIMITER;
         } else if (taskType == Deadline.class) {
             serialized += "D" + PART_DELIMITER;
-            serialized += ((Deadline) t).getDueDate() + PART_DELIMITER;
+            serialized += ((Deadline) t).getAssociatedDateString() + PART_DELIMITER;
         }
         serialized += t.getTitle() + PART_DELIMITER;
         serialized += (t.getDone()) ? "Y" : "N";
