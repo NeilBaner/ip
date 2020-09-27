@@ -10,8 +10,6 @@ import com.neilbaner.duke.ui.InputParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,45 +18,6 @@ public class Duke {
     public static TaskList list = new TaskList();
 
     public static final String SAVE_FILE_PATH = "dukesave.txt";
-
-    private static void loadTasks() {
-        File saveFile = new File("dukesave.txt");
-        try {
-            Scanner fs = new Scanner(saveFile);
-            while (fs.hasNext()) {
-                String currentLine = fs.nextLine();
-                Task currentTask = Serializer.deserializeTask(currentLine);
-                list.addTask(currentTask);
-            }
-            fs.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("Couldn't load the save file. Proceeding without loading.");
-        } catch (DeserializerException e) {
-            System.err.println("Some error trying to parse the save file. Proceeding without loading. ");
-        }
-    }
-
-    public static void printTaskList() {
-        Messages.printHorizontalLine();
-        if (list.getSize() == 0) {
-            System.out.println("No tasks added yet");
-        }
-        for (Task task : list.getAllTasksList()) {
-            System.out.println(task.toString());
-        }
-        Messages.printHorizontalLine();
-    }
-
-    public static void printTaskList(ArrayList<Task> taskListToPrint) {
-        Messages.printHorizontalLine();
-        if (taskListToPrint.size() == 0) {
-            System.out.println("No tasks that match. ");
-        }
-        for (Task task : taskListToPrint) {
-            System.out.println(task.toString());
-        }
-        Messages.printHorizontalLine();
-    }
 
     public static void addToDo(String title) {
         list.addTask(new ToDo(title));
@@ -86,22 +45,12 @@ public class Duke {
         Messages.printDeleted(deletedTitle);
     }
 
-    private static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException {
-        try {
-            String dateString = input.substring(command.length() + 1);
-            LocalDate inputDate = LocalDate.parse(dateString);
-            return inputDate;
-        } catch (IndexOutOfBoundsException e) {
-            throw new IncorrectFormattingException();
-        }
-    }
-
     private static boolean parseInput(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
         if (lowerCaseInput.equals(Commands.EXIT_COMMAND)) {
             Messages.printGoodBye();
             return false;
-        } else if (lowerCaseInput.equals("list")) {
+        } else if (lowerCaseInput.equals(Commands.LIST_COMMAND)) {
             printTaskList();
         } else if (lowerCaseInput.startsWith(Commands.DONE_COMMAND)) {
             try {
@@ -147,7 +96,7 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith(Commands.BEFORE_COMMAND)) {
             try {
-                LocalDate dateInput = getDateFromInput(input, Commands.BEFORE_COMMAND);
+                LocalDate dateInput = InputParser.getDateFromInput(input, Commands.BEFORE_COMMAND);
                 ArrayList<Task> tasksBeforeDateList = list.getAllTasksBeforeList(dateInput);
                 printTaskList(tasksBeforeDateList);
             } catch (DukeException e) {
@@ -155,7 +104,7 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith(Commands.AT_COMMAND)) {
             try {
-                LocalDate dateInput = getDateFromInput(input, Commands.AT_COMMAND);
+                LocalDate dateInput = InputParser.getDateFromInput(input, Commands.AT_COMMAND);
                 ArrayList<Task> tasksBeforeDateList = list.getAllTasksOnList(dateInput);
                 printTaskList(tasksBeforeDateList);
             } catch (DukeException e) {

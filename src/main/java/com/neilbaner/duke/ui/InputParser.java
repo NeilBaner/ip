@@ -1,5 +1,9 @@
 package com.neilbaner.duke.ui;
 
+import com.neilbaner.duke.exceptions.IncorrectFormattingException;
+
+import java.time.LocalDate;
+
 public class InputParser {
     public static String getEventTime(String input) {
         return input.substring(input.indexOf(Commands.EVENT_AT_DELIMITER) + 4).strip();
@@ -14,9 +18,13 @@ public class InputParser {
         return input.substring(input.indexOf(Commands.DEADLINE_BY_DELIMITER) + delimiterLength).strip();
     }
 
-    public static int getIndexToMark(String input) {
+    public static int getIndexToMark(String input) throws IncorrectFormattingException {
         int beginIndex = Commands.DONE_COMMAND.length() + 1;
-        return Integer.parseInt(input.substring(beginIndex)) - 1;
+        try{
+            return Integer.parseInt(input.substring(beginIndex)) - 1;
+        } catch (NumberFormatException e) {
+            throw new IncorrectFormattingException();
+        }
     }
 
     public static int getIndexToDelete(String input) {
@@ -30,5 +38,15 @@ public class InputParser {
     public static String getSearchKey(String input) {
         int beginIndex = Commands.FIND_COMMAND.length() + 1;
         return input.substring(beginIndex);
+    }
+
+    public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException {
+        try {
+            String dateString = input.substring(command.length() + 1);
+            LocalDate inputDate = LocalDate.parse(dateString);
+            return inputDate;
+        } catch (IndexOutOfBoundsException e) {
+            throw new IncorrectFormattingException();
+        }
     }
 }
