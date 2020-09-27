@@ -1,9 +1,11 @@
 package com.neilbaner.duke;
 
 import com.neilbaner.duke.exceptions.*;
+import com.neilbaner.duke.files.Storage;
 import com.neilbaner.duke.messages.Messages;
 import com.neilbaner.duke.serialize.Serializer;
 import com.neilbaner.duke.task.*;
+import com.neilbaner.duke.ui.InputParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +17,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static TaskList list = new TaskList();
+
+    public static final String SAVE_FILE_PATH = "dukesave.txt";
 
     private static void loadTasks() {
         File saveFile = new File("dukesave.txt");
@@ -81,33 +85,7 @@ public class Duke {
         Messages.printDeleted(deletedTitle);
     }
 
-    private static String getEventTime(String input) {
-        return input.substring(input.indexOf("/at") + 4).strip();
-    }
 
-    private static String getEventTitle(String input) {
-        return input.substring(6, input.indexOf("/at")).strip();
-    }
-
-    private static String getDeadlineDueDate(String input) {
-        return input.substring(input.indexOf("/by") + 4).strip();
-    }
-
-    private static int getIndexToMark(String input) {
-        return Integer.parseInt(input.substring(5)) - 1;
-    }
-
-    private static int getIndexToDelete(String input) {
-        return Integer.parseInt(input.substring(7)) - 1;
-    }
-
-    private static String getDeadlineTitle(String input) {
-        return input.substring(9, input.indexOf("/by")).strip();
-    }
-
-    private static String getSearchKey(String input) {
-        return input.substring(5);
-    }
 
     private static void saveState() throws IOException {
         FileWriter fw = new FileWriter("dukesave.txt", false);
@@ -139,7 +117,7 @@ public class Duke {
             printTaskList();
         } else if (lowerCaseInput.startsWith("done")) {
             try {
-                int indexToMark = getIndexToMark(input);
+                int indexToMark = InputParser.getIndexToMark(input);
                 markAsDone(indexToMark);
             } catch (NumberFormatException e) {
                 Messages.printFormattingError();
@@ -148,7 +126,7 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith("delete")) {
             try {
-                int indexToDelete = getIndexToDelete(input);
+                int indexToDelete = InputParser.getIndexToDelete(input);
                 deleteTask(indexToDelete);
             } catch (NumberFormatException e) {
                 Messages.printFormattingError();
@@ -159,8 +137,8 @@ public class Duke {
             addToDo(input.substring(5));
         } else if (lowerCaseInput.startsWith("deadline")) {
             try {
-                String title = getDeadlineTitle(input);
-                String dueDate = getDeadlineDueDate(input);
+                String title = InputParser.getDeadlineTitle(input);
+                String dueDate = InputParser.getDeadlineDueDate(input);
                 if (dueDate.equals("")) {
                     throw new BlankDeadlineDateException();
                 }
@@ -170,8 +148,8 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith("event")) {
             try {
-                String title = getEventTitle(input);
-                String eventTime = getEventTime(input);
+                String title = InputParser.getEventTitle(input);
+                String eventTime = InputParser.getEventTime(input);
                 if (eventTime.equals("")) {
                     throw new BlankEventTimeException();
                 }
@@ -197,7 +175,7 @@ public class Duke {
             }
         } else if (lowerCaseInput.startsWith("find")) {
             try {
-                String searchKey = getSearchKey(input);
+                String searchKey = InputParser.getSearchKey(input);
                 ArrayList<Task> searchResults = list.searchTasksResults(searchKey);
                 printTaskList(searchResults);
             }catch (IndexOutOfBoundsException e) {
@@ -212,18 +190,25 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        loadTasks();
-        Scanner k = new Scanner(System.in);
-        String input;
-        boolean toContinue = true;
-        Messages.printHello();
-        while (toContinue) {
-            input = k.nextLine();
-            try {
-                toContinue = parseInput(input);
-            } catch (DukeException e) {
-                e.printErrorMessage(input);
+        try{
+            Storage storage = new Storage(SAVE_FILE_PATH);
+            storage.loadState(list);
+            Scanner k = new Scanner(System.in);
+            String input;
+            boolean toContinue = true;
+            Messages.printHello();
+            while (toContinue) {
+                input = k.nextLine();
+                try {
+                    toContinue = parseInput(input);
+                } catch (DukeException e) {
+                    e.printErrorMessage(input);
+                }
             }
+            storage.saveState(list);
+        } catch (DukeException e) {
+            e.printErrorMessage("");
         }
+
     }
 }
