@@ -37,32 +37,42 @@ public class TaskList {
     public Task getTask(int index) {
         return tasks.get(index);
     }
-
     public ArrayList<Task> getAllTasksBeforeList(LocalDate dateBeforeWhich) {
         ArrayList<Task> allTasksBeforeList = new ArrayList<>();
         for(Task t: tasks) {
-            if(t instanceof TaskWithAssociatedDate) {
                 TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate)t;
-                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+            if(t instanceof TaskWithAssociatedDate) {
                 if(dateOfCurrentTask.isBefore(dateBeforeWhich)) {
+                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
                     allTasksBeforeList.add(t);
                 }
             }
         }
-        return allTasksBeforeList;
     }
-
-    public ArrayList<Task> getAllTasksOnList(LocalDate dateBeforeWhich) {
-        ArrayList<Task> allTasksOnList = new ArrayList<>();
+        return allTasksOnList;
+        }
+            }
+                }
+                    allTasksOnList.add(t);
+                if(dateOfCurrentTask.isEqual(dateBeforeWhich)) {
+                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+                TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate)t;
         for(Task t: tasks) {
             if(t instanceof TaskWithAssociatedDate) {
-                TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate)t;
-                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
-                if(dateOfCurrentTask.isEqual(dateBeforeWhich)) {
-                    allTasksOnList.add(t);
-                }
+        ArrayList<Task> allTasksOnList = new ArrayList<>();
+    public ArrayList<Task> getAllTasksOnList(LocalDate dateBeforeWhich) {
+
+    }
+        return allTasksBeforeList;
+    public ArrayList<Task> searchTasksResults(String searchKey) {
+        ArrayList<Task> results = new ArrayList<Task>();
+        for(Task t: tasks) {
+            String lowerCaseTitle = t.getTitle().toLowerCase();
+            if(lowerCaseTitle.contains(searchKey)) {
+                results.add(t);
             }
         }
-        return allTasksOnList;
+        return results;
     }
+
 }

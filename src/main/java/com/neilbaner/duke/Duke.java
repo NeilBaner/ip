@@ -105,6 +105,10 @@ public class Duke {
         return input.substring(9, input.indexOf("/by")).strip();
     }
 
+    private static String getSearchKey(String input) {
+        return input.substring(5);
+    }
+
     private static void saveState() throws IOException {
         FileWriter fw = new FileWriter("dukesave.txt", false);
         fw.write(Serializer.serializeTaskList(list));
@@ -164,7 +168,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
-        } else if (input.startsWith("event")) {
+        } else if (lowerCaseInput.startsWith("event")) {
             try {
                 String title = getEventTitle(input);
                 String eventTime = getEventTime(input);
@@ -191,7 +195,16 @@ public class Duke {
             } catch (DukeException e) {
                 e.printErrorMessage(input);
             }
+        } else if (lowerCaseInput.startsWith("find")) {
+            try {
+                String searchKey = getSearchKey(input);
+                ArrayList<Task> searchResults = list.searchTasksResults(searchKey);
+                printTaskList(searchResults);
+            }catch (IndexOutOfBoundsException e) {
+                Messages.printFormattingError();
+            }
         }
+
         else {
             throw new UnknownCommandException();
         }
