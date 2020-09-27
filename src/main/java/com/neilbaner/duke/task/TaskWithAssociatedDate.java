@@ -58,8 +58,13 @@ public abstract class TaskWithAssociatedDate extends Task {
             }
         }
     }
+
     public String getAssociatedDateString() {
         return associatedDateString;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
