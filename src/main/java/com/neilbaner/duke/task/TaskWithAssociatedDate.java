@@ -15,6 +15,9 @@ public abstract class TaskWithAssociatedDate extends Task {
         return associatedTime;
     }
 
+    protected LocalDate associatedDate;
+    protected LocalTime associatedTime;
+
     public TaskWithAssociatedDate(String title, String associatedDate) {
         super(title);
         this.associatedDateString = associatedDate;
@@ -32,7 +35,7 @@ public abstract class TaskWithAssociatedDate extends Task {
         setTime(dateString);
     }
 
-    private void setDate(String dateString) {
+    protected void setDate(String dateString) {
         String[] tokens = dateString.split(" ");
         for (String token : tokens) {
             try {
@@ -44,7 +47,7 @@ public abstract class TaskWithAssociatedDate extends Task {
         }
     }
 
-    private void setTime(String dateString) {
+    protected void setTime(String dateString) {
         String[] tokens = dateString.split(" ");
         for (String token : tokens) {
             try {
@@ -58,4 +61,5 @@ public abstract class TaskWithAssociatedDate extends Task {
     public String getAssociatedDateString() {
         return associatedDateString;
     }
+
 }
