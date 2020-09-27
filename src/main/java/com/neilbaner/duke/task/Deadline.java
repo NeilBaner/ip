@@ -1,5 +1,7 @@
 package com.neilbaner.duke.task;
 
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends TaskWithAssociatedDate {
 
     public Deadline(String title, String dueDate) {
@@ -13,7 +15,10 @@ public class Deadline extends TaskWithAssociatedDate {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + ", by " + associatedDateString;
+        if(associatedDate != null) {
+            return "[D]" + super.toString() + ", at " + associatedDate.format(DateTimeFormatter.ofPattern("dd/MM" +
+                    "/yyyy"));
+        }
+        return "[D]" + super.toString() + ", at " + associatedDateString;
     }
-
 }

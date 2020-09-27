@@ -1,5 +1,7 @@
 package com.neilbaner.duke.task;
 
+import java.time.format.DateTimeFormatter;
+
 public class Event extends TaskWithAssociatedDate {
 
     public Event(String title, String eventTime) {
@@ -14,10 +16,9 @@ public class Event extends TaskWithAssociatedDate {
 
     @Override
     public String toString() {
+        if(associatedDate != null) {
+            return "[E]" + super.toString() + ", at " + associatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
         return "[E]" + super.toString() + ", at " + associatedDateString;
-    }
-
-    public String getEventTime() {
-        return associatedDateString;
     }
 }
