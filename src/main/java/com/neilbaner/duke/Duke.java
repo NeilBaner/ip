@@ -3,13 +3,10 @@ package com.neilbaner.duke;
 import com.neilbaner.duke.exceptions.*;
 import com.neilbaner.duke.files.Storage;
 import com.neilbaner.duke.messages.Messages;
-import com.neilbaner.duke.serialize.Serializer;
 import com.neilbaner.duke.task.*;
 import com.neilbaner.duke.ui.Commands;
 import com.neilbaner.duke.ui.InputParser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -45,89 +42,8 @@ public class Duke {
         Messages.printDeleted(deletedTitle);
     }
 
-    private static boolean parseInput(String input) throws DukeException {
-        String lowerCaseInput = input.toLowerCase();
-        if (lowerCaseInput.equals(Commands.EXIT_COMMAND)) {
-            Messages.printGoodBye();
-            return false;
-        } else if (lowerCaseInput.equals(Commands.LIST_COMMAND)) {
-            printTaskList();
-        } else if (lowerCaseInput.startsWith(Commands.DONE_COMMAND)) {
-            try {
-                int indexToMark = InputParser.getIndexToMark(input);
-                markAsDone(indexToMark);
-            } catch (NumberFormatException e) {
-                Messages.printFormattingError();
-            } catch (IndexOutOfBoundsException e) {
-                throw new TaskIndexOutOfBoundsException();
-            }
-        } else if (lowerCaseInput.startsWith(Commands.DELETE_COMMAND)) {
-            try {
-                int indexToDelete = InputParser.getIndexToDelete(input);
-                deleteTask(indexToDelete);
-            } catch (NumberFormatException e) {
-                Messages.printFormattingError();
-            } catch (IndexOutOfBoundsException e) {
-                throw new TaskIndexOutOfBoundsException();
-            }
-        } else if (lowerCaseInput.startsWith(Commands.ADD_TODO_COMMAND)) {
-            addToDo(input.substring(5));
-        } else if (lowerCaseInput.startsWith(Commands.ADD_DEADLINE_COMMAND)) {
-            try {
-                String title = InputParser.getDeadlineTitle(input);
-                String dueDate = InputParser.getDeadlineDueDate(input);
-                if (dueDate.equals("")) {
-                    throw new BlankDeadlineDateException();
-                }
-                addDeadline(title, dueDate);
-            } catch (IndexOutOfBoundsException e) {
-                Messages.printFormattingError();
-            }
-        } else if (lowerCaseInput.startsWith(Commands.ADD_EVENT_COMMAND)) {
-            try {
-                String title = InputParser.getEventTitle(input);
-                String eventTime = InputParser.getEventTime(input);
-                if (eventTime.equals("")) {
-                    throw new BlankEventTimeException();
-                }
-                addEvent(title, eventTime);
-            } catch (IndexOutOfBoundsException e) {
-                Messages.printFormattingError();
-            }
-        } else if (lowerCaseInput.startsWith(Commands.BEFORE_COMMAND)) {
-            try {
-                LocalDate dateInput = InputParser.getDateFromInput(input, Commands.BEFORE_COMMAND);
-                ArrayList<Task> tasksBeforeDateList = list.getAllTasksBeforeList(dateInput);
-                printTaskList(tasksBeforeDateList);
-            } catch (DukeException e) {
-                e.printErrorMessage(input);
-            }
-        } else if (lowerCaseInput.startsWith(Commands.AT_COMMAND)) {
-            try {
-                LocalDate dateInput = InputParser.getDateFromInput(input, Commands.AT_COMMAND);
-                ArrayList<Task> tasksBeforeDateList = list.getAllTasksOnList(dateInput);
-                printTaskList(tasksBeforeDateList);
-            } catch (DukeException e) {
-                e.printErrorMessage(input);
-            }
-        } else if (lowerCaseInput.startsWith(Commands.FIND_COMMAND)) {
-            try {
-                String searchKey = InputParser.getSearchKey(input);
-                ArrayList<Task> searchResults = list.searchTasksResults(searchKey);
-                printTaskList(searchResults);
-            }catch (IndexOutOfBoundsException e) {
-                Messages.printFormattingError();
-            }
-        }
-
-        else {
-            throw new UnknownCommandException();
-        }
-        return true;
-    }
-
     public static void main(String[] args) {
-        try{
+        try {
             Storage storage = new Storage(SAVE_FILE_PATH);
             storage.loadState(list);
             Scanner k = new Scanner(System.in);
@@ -146,6 +62,5 @@ public class Duke {
         } catch (DukeException e) {
             e.printErrorMessage("");
         }
-
     }
 }
