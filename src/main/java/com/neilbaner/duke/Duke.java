@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class Duke {
         File saveFile = new File("dukesave.txt");
         try {
             Scanner fs = new Scanner(saveFile);
-            while(fs.hasNext()) {
+            while (fs.hasNext()) {
                 String currentLine = fs.nextLine();
                 Task currentTask = Serializer.deserializeTask(currentLine);
                 list.addTask(currentTask);
@@ -30,7 +31,6 @@ public class Duke {
         } catch (DeserializerException e) {
             System.err.println("Some error trying to parse the save file. Proceeding without loading. ");
         }
-
     }
 
     public static void printTaskList() {
@@ -44,12 +44,12 @@ public class Duke {
         Messages.printHorizontalLine();
     }
 
-    public static void printTaskList(ArrayList<Task> taskArrayList) {
+    public static void printTaskList(ArrayList<Task> taskListToPrint) {
         Messages.printHorizontalLine();
-        if (taskArrayList.size() == 0) {
-            System.out.println("No tasks added yet");
+        if (taskListToPrint.size() == 0) {
+            System.out.println("No tasks that match. ");
         }
-        for (Task task : taskArrayList) {
+        for (Task task : taskListToPrint) {
             System.out.println(task.toString());
         }
         Messages.printHorizontalLine();
@@ -115,13 +115,23 @@ public class Duke {
         fw.close();
     }
 
+    private static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException {
+        try {
+            String dateString = input.substring(command.length() + 1);
+            LocalDate inputDate = LocalDate.parse(dateString);
+            return inputDate;
+        } catch (IndexOutOfBoundsException e) {
+            throw new IncorrectFormattingException();
+        }
+    }
+
     private static boolean parseInput(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
         if (lowerCaseInput.equals("bye")) {
             Messages.printGoodBye();
-            try{
+            try {
                 saveState();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 System.err.println("Error saving the state. Your data was not saved.");
             }
             return false;
@@ -168,6 +178,22 @@ public class Duke {
                 addEvent(title, eventTime);
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
+            }
+        } else if (lowerCaseInput.startsWith("before")) {
+            try {
+                LocalDate dateInput = getDateFromInput(input, "before");
+                ArrayList<Task> tasksBeforeDateList = list.getAllTasksBeforeList(dateInput);
+                printTaskList(tasksBeforeDateList);
+            } catch (DukeException e) {
+                e.printErrorMessage(input);
+            }
+        } else if (lowerCaseInput.startsWith("at")) {
+            try {
+                LocalDate dateInput = getDateFromInput(input, "at");
+                ArrayList<Task> tasksBeforeDateList = list.getAllTasksOnList(dateInput);
+                printTaskList(tasksBeforeDateList);
+            } catch (DukeException e) {
+                e.printErrorMessage(input);
             }
         } else if (lowerCaseInput.startsWith("find")) {
             try {
