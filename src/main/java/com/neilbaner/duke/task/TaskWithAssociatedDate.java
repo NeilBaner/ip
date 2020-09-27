@@ -18,11 +18,13 @@ public abstract class TaskWithAssociatedDate extends Task {
     public TaskWithAssociatedDate(String title, String associatedDate) {
         super(title);
         this.associatedDateString = associatedDate;
+        setDateTime(associatedDate);
     }
 
     public TaskWithAssociatedDate(String title, String description, String associatedDate) {
         super(title, description);
         this.associatedDateString = associatedDate;
+        setDateTime(associatedDate);
     }
 
     protected void setDateTime(String dateString) {
