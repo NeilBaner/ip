@@ -1,24 +1,24 @@
 package com.neilbaner.duke.task;
 
-public class Deadline extends Task {
-    private String dueDate;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends TaskWithAssociatedDate {
 
     public Deadline(String title, String dueDate) {
-        super(title);
-        this.dueDate = dueDate;
+        super(title, dueDate);
+        setDateTime(this.associatedDateString);
     }
 
     public Deadline(String title, String description, String dueDate) {
-        super(title, description);
-        this.dueDate = dueDate;
+        super(title, description, dueDate);
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + ", by " + dueDate;
-    }
-
-    public String getDueDate() {
-        return dueDate;
+        if(associatedDate != null) {
+            return "[D]" + super.toString() + ", at " + associatedDate.format(DateTimeFormatter.ofPattern("dd/MM" +
+                    "/yyyy"));
+        }
+        return "[D]" + super.toString() + ", at " + associatedDateString;
     }
 }
