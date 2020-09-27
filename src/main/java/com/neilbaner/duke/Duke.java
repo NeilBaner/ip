@@ -5,6 +5,7 @@ import com.neilbaner.duke.files.Storage;
 import com.neilbaner.duke.messages.Messages;
 import com.neilbaner.duke.serialize.Serializer;
 import com.neilbaner.duke.task.*;
+import com.neilbaner.duke.ui.Commands;
 import com.neilbaner.duke.ui.InputParser;
 
 import java.io.File;
@@ -85,14 +86,6 @@ public class Duke {
         Messages.printDeleted(deletedTitle);
     }
 
-
-
-    private static void saveState() throws IOException {
-        FileWriter fw = new FileWriter("dukesave.txt", false);
-        fw.write(Serializer.serializeTaskList(list));
-        fw.close();
-    }
-
     private static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException {
         try {
             String dateString = input.substring(command.length() + 1);
@@ -105,17 +98,12 @@ public class Duke {
 
     private static boolean parseInput(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
-        if (lowerCaseInput.equals("bye")) {
+        if (lowerCaseInput.equals(Commands.EXIT_COMMAND)) {
             Messages.printGoodBye();
-            try {
-                saveState();
-            } catch (IOException e) {
-                System.err.println("Error saving the state. Your data was not saved.");
-            }
             return false;
         } else if (lowerCaseInput.equals("list")) {
             printTaskList();
-        } else if (lowerCaseInput.startsWith("done")) {
+        } else if (lowerCaseInput.startsWith(Commands.DONE_COMMAND)) {
             try {
                 int indexToMark = InputParser.getIndexToMark(input);
                 markAsDone(indexToMark);
@@ -124,7 +112,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException();
             }
-        } else if (lowerCaseInput.startsWith("delete")) {
+        } else if (lowerCaseInput.startsWith(Commands.DELETE_COMMAND)) {
             try {
                 int indexToDelete = InputParser.getIndexToDelete(input);
                 deleteTask(indexToDelete);
@@ -133,9 +121,9 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 throw new TaskIndexOutOfBoundsException();
             }
-        } else if (lowerCaseInput.startsWith("todo")) {
+        } else if (lowerCaseInput.startsWith(Commands.ADD_TODO_COMMAND)) {
             addToDo(input.substring(5));
-        } else if (lowerCaseInput.startsWith("deadline")) {
+        } else if (lowerCaseInput.startsWith(Commands.ADD_DEADLINE_COMMAND)) {
             try {
                 String title = InputParser.getDeadlineTitle(input);
                 String dueDate = InputParser.getDeadlineDueDate(input);
@@ -146,7 +134,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
-        } else if (lowerCaseInput.startsWith("event")) {
+        } else if (lowerCaseInput.startsWith(Commands.ADD_EVENT_COMMAND)) {
             try {
                 String title = InputParser.getEventTitle(input);
                 String eventTime = InputParser.getEventTime(input);
@@ -157,23 +145,23 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 Messages.printFormattingError();
             }
-        } else if (lowerCaseInput.startsWith("before")) {
+        } else if (lowerCaseInput.startsWith(Commands.BEFORE_COMMAND)) {
             try {
-                LocalDate dateInput = getDateFromInput(input, "before");
+                LocalDate dateInput = getDateFromInput(input, Commands.BEFORE_COMMAND);
                 ArrayList<Task> tasksBeforeDateList = list.getAllTasksBeforeList(dateInput);
                 printTaskList(tasksBeforeDateList);
             } catch (DukeException e) {
                 e.printErrorMessage(input);
             }
-        } else if (lowerCaseInput.startsWith("at")) {
+        } else if (lowerCaseInput.startsWith(Commands.AT_COMMAND)) {
             try {
-                LocalDate dateInput = getDateFromInput(input, "at");
+                LocalDate dateInput = getDateFromInput(input, Commands.AT_COMMAND);
                 ArrayList<Task> tasksBeforeDateList = list.getAllTasksOnList(dateInput);
                 printTaskList(tasksBeforeDateList);
             } catch (DukeException e) {
                 e.printErrorMessage(input);
             }
-        } else if (lowerCaseInput.startsWith("find")) {
+        } else if (lowerCaseInput.startsWith(Commands.FIND_COMMAND)) {
             try {
                 String searchKey = InputParser.getSearchKey(input);
                 ArrayList<Task> searchResults = list.searchTasksResults(searchKey);
