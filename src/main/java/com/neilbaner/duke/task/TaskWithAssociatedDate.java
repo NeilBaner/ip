@@ -4,7 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class TaskWithAssociatedDate extends Task {
+public abstract class TaskWithAssociatedDate extends Task {
     protected String associatedDateString;
     private LocalDate associatedDate;
     private LocalTime associatedTime;
