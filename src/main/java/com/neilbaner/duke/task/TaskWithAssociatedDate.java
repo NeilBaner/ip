@@ -6,8 +6,14 @@ import java.time.LocalTime;
 
 public abstract class TaskWithAssociatedDate extends Task {
     protected String associatedDateString;
-    private LocalDate associatedDate;
-    private LocalTime associatedTime;
+
+    public LocalDate getAssociatedDate() {
+        return associatedDate;
+    }
+
+    public LocalTime getAssociatedTime() {
+        return associatedTime;
+    }
 
     public TaskWithAssociatedDate(String title, String associatedDate) {
         super(title);
