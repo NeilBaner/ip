@@ -66,4 +66,14 @@ public class TaskList {
         return allTasksOnList;
     }
 
+    public ArrayList<Task> searchTasksResults(String searchKey) {
+        ArrayList<Task> results = new ArrayList<Task>();
+        for (Task t : tasks) {
+            if (t.getTitle().contains(searchKey)) {
+                results.add(t);
+            }
+        }
+        return results;
+    }
+
 }
