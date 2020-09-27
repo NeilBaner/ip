@@ -1,5 +1,6 @@
 package com.neilbaner.duke.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -35,5 +36,33 @@ public class TaskList {
 
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    public ArrayList<Task> getAllTasksBeforeList(LocalDate dateBeforeWhich) {
+        ArrayList<Task> allTasksBeforeList = new ArrayList<>();
+        for(Task t: tasks) {
+            if(t instanceof TaskWithAssociatedDate) {
+                TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate)t;
+                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+                if(dateOfCurrentTask.isBefore(dateBeforeWhich)) {
+                    allTasksBeforeList.add(t);
+                }
+            }
+        }
+        return allTasksBeforeList;
+    }
+
+    public ArrayList<Task> getAllTasksOnList(LocalDate dateBeforeWhich) {
+        ArrayList<Task> allTasksOnList = new ArrayList<>();
+        for(Task t: tasks) {
+            if(t instanceof TaskWithAssociatedDate) {
+                TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate)t;
+                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+                if(dateOfCurrentTask.isEqual(dateBeforeWhich)) {
+                    allTasksOnList.add(t);
+                }
+            }
+        }
+        return allTasksOnList;
     }
 }
