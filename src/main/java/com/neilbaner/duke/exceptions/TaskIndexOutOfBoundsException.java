@@ -1,6 +1,6 @@
 package com.neilbaner.duke.exceptions;
 
-import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.messages.ErrorMessages;
 
 public class TaskIndexOutOfBoundsException extends DukeException {
     public TaskIndexOutOfBoundsException() {
@@ -9,6 +9,6 @@ public class TaskIndexOutOfBoundsException extends DukeException {
 
     @Override
     public void printErrorMessage(String command) {
-        Messages.printTaskIndexOutOfBounds();
+        ErrorMessages.printTaskIndexOutOfBounds();
     }
 }

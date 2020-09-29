@@ -2,13 +2,12 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.ErrorMessages;
 
-public class IncorrectFormattingException extends DukeException {
-    public IncorrectFormattingException() {
+public class BlankIndexToMarkException extends DukeException {
+    public BlankIndexToMarkException() {
         super();
     }
-
     @Override
     public void printErrorMessage(String command) {
-        ErrorMessages.printFormattingError();
+        ErrorMessages.printBlankIndexToMark();
     }
 }

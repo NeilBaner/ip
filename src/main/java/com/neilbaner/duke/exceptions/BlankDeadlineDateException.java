@@ -1,6 +1,6 @@
 package com.neilbaner.duke.exceptions;
 
-import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.messages.ErrorMessages;
 
 public class BlankDeadlineDateException extends DukeException {
     public BlankDeadlineDateException() {
@@ -9,6 +9,6 @@ public class BlankDeadlineDateException extends DukeException {
 
     @Override
     public void printErrorMessage(String command) {
-        Messages.printBlankDeadlineDate();
+        ErrorMessages.printBlankDeadlineDate();
     }
 }

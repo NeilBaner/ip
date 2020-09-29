@@ -1,6 +1,6 @@
 package com.neilbaner.duke.exceptions;
 
-import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.messages.ErrorMessages;
 
 public class BlankTaskTitleException extends DukeException {
     public BlankTaskTitleException() {
@@ -9,6 +9,6 @@ public class BlankTaskTitleException extends DukeException {
 
     @Override
     public void printErrorMessage(String command) {
-        Messages.printBlankTaskTitle();
+        ErrorMessages.printBlankTaskTitle();
     }
 }

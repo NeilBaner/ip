@@ -1,6 +1,6 @@
 package com.neilbaner.duke.exceptions;
 
-import com.neilbaner.duke.messages.Messages;
+import com.neilbaner.duke.messages.ErrorMessages;
 
 public class UnknownCommandException extends DukeException {
     public UnknownCommandException() {
@@ -9,6 +9,6 @@ public class UnknownCommandException extends DukeException {
 
     @Override
     public void printErrorMessage(String command) {
-        Messages.printUnknownCommand(command);
+        ErrorMessages.printUnknownCommand(command);
     }
 }
