@@ -43,94 +43,27 @@ public class Messages {
         System.out.println("<tasknumber> represents the number associated with the task, as seen on screen. ");
     }
 
+    public static void printDeleteSyntax() {
+        System.out.println("delete <tasknumber>");
+        System.out.println("<tasknumber> represents the number associated with the task, as seen on screen. ");
+    }
+
+    public static void printFindSyntax() {
+        System.out.println("find <key>");
+        System.out.println("<key> represents whatever you want to search for. ");
+    }
+
+    public static void printBeforeSyntax() {
+        System.out.println("before YYYY-MM-DD");
+        System.out.println("YYYY-MM-DD is the date before which you want to find tasks.");
+    }
+
+    public static void printAtSyntax() {
+        System.out.println("at YYYY-MM-DD");
+        System.out.println("YYYY-MM-DD is the date at which you want to find tasks.");
+    }
+
     public static void printHelpSyntax() {
         System.out.println("help");
-    }
-
-    public static void printGoodBye() {
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("Shutting down...");
-        printHorizontalLine();
-    }
-
-    public static void printAddedToDo(String title) {
-        String confirmation = MessageGenerator.generateConfirmationMessage();
-        printHorizontalLine();
-        System.out.print(confirmation);
-        System.out.println("I've added the following to-do to your list: " + title);
-        printHorizontalLine();
-    }
-
-    public static void printAddedEvent(String title) {
-        String confirmation = MessageGenerator.generateConfirmationMessage();
-        printHorizontalLine();
-        System.out.print(confirmation);
-        System.out.println("I've added this event to your list: " + title);
-        printHorizontalLine();
-    }
-
-    public static void printAddedDeadline(String title) {
-        String confirmation = MessageGenerator.generateConfirmationMessage();
-        printHorizontalLine();
-        System.out.print(confirmation);
-        System.out.println("Added a new deadline to your list, titled : " + title);
-        printHorizontalLine();
-    }
-
-    public static void printMarkedDone(String title) {
-        String confirmation = MessageGenerator.generateConfirmationMessage();
-        printHorizontalLine();
-        System.out.print(confirmation);
-        System.out.println(title + " marked as done.");
-        printHorizontalLine();
-    }
-
-    public static void printDeleted(String title) {
-        String confirmation = MessageGenerator.generateConfirmationMessage();
-        printHorizontalLine();
-        System.out.print(confirmation);
-        System.out.println(title + " deleted. ");
-        printHorizontalLine();
-    }
-
-    public static void printFormattingError() {
-        System.out.println("Incorrectly formatted input");
-        printHorizontalLine();
-    }
-
-    public static void printNonExistError() {
-        System.out.println("Task does not exist in list");
-        printHorizontalLine();
-    }
-
-    public static void printUnknownCommand(String command) {
-        System.out.println("I'm sorry, I'm not sure what " + command + " means. ");
-        printHelp();
-        printHorizontalLine();
-    }
-
-    public static void printBlankTaskTitle() {
-        System.out.println("Sorry, you need to add a title for the task. ");
-        printHorizontalLine();
-    }
-
-    public static void printBlankEventTime() {
-        System.out.println("Every event needs to have a time. The syntax for adding an event is as follows: ");
-        printEventSyntax();
-        printHorizontalLine();
-    }
-
-    public static void printBlankDeadlineDate() {
-        System.out.println("Every deadline needs to have a due date. The syntax for adding a deadline is as follows: ");
-        printDeadlineSyntax();
-        printHorizontalLine();
-    }
-
-    public static void printTaskIndexOutOfBounds() {
-        System.out.println("Please make sure that the task number you enter to mark as done is on the list. ");
-        System.out.println("For reference, here's how to mark a task as done: ");
-        printDoneSyntax();
-        printHorizontalLine();
     }
 }
