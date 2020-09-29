@@ -1,5 +1,7 @@
 package com.neilbaner.duke.task;
 
+import com.neilbaner.duke.exceptions.TaskIndexOutOfBoundsException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -22,20 +24,32 @@ public class TaskList {
         tasks.add(t);
     }
 
-    public void deleteTask(int index) throws IndexOutOfBoundsException {
-        tasks.remove(index);
+    public void deleteTask(int index) throws TaskIndexOutOfBoundsException {
+        try {
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfBoundsException();
+        }
     }
 
-    public void markTaskDone(int index) throws IndexOutOfBoundsException {
-        tasks.get(index).setDone();
+    public void markTaskDone(int index) throws TaskIndexOutOfBoundsException {
+        try {
+            tasks.get(index).setDone();
+        }catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfBoundsException();
+        }
     }
 
     public int getSize() {
         return tasks.size();
     }
 
-    public Task getTask(int index) {
-        return tasks.get(index);
+    public Task getTask(int index) throws TaskIndexOutOfBoundsException {
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskIndexOutOfBoundsException();
+        }
     }
 
     public ArrayList<Task> getAllTasksBeforeList(LocalDate dateBeforeWhich) {
