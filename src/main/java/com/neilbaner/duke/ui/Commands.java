@@ -17,4 +17,6 @@ public class Commands {
 
     public static final String BEFORE_COMMAND = "before";
     public static final String AT_COMMAND = "at";
+
+    public static final String HELP_COMMAND = "help";
 }
