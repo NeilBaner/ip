@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -38,6 +37,7 @@ public class Storage {
             fw.write(Serializer.serializeTaskList(list));
             fw.close();
         } catch (IOException e) {
+            System.out.println(Serializer.serializeTaskList(list));
             throw new FileSavingException();
         }
     }
