@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 import static com.neilbaner.duke.ui.Commands.EXIT_COMMAND;
 
-public class Duke {
-    public static final String SAVE_FILE_PATH = "dukesave.txt";
-    public static final TaskList list = new TaskList();
+class Duke {
+    private static final String SAVE_FILE_PATH = "dukesave.txt";
+    private static final TaskList list = new TaskList();
 
     public static void main(String[] args) {
         String input = "";

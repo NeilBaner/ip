@@ -5,16 +5,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public abstract class TaskWithAssociatedDate extends Task {
-    protected String associatedDateString;
-    protected LocalDate associatedDate;
-    protected LocalTime associatedTime;
+    String associatedDateString;
+    LocalDate associatedDate;
+    private LocalTime associatedTime;
 
-    public TaskWithAssociatedDate(String title, String associatedDate) {
+    TaskWithAssociatedDate(String title, String associatedDate) {
         super(title);
         this.associatedDateString = associatedDate;
         setDateTime(associatedDate);
     }
-    public TaskWithAssociatedDate(String title, String description, String associatedDate) {
+    TaskWithAssociatedDate(String title, String description, String associatedDate) {
         super(title, description);
         this.associatedDateString = associatedDate;
         setDateTime(associatedDate);
@@ -28,12 +28,12 @@ public abstract class TaskWithAssociatedDate extends Task {
         return associatedTime;
     }
 
-    protected void setDateTime(String dateString) {
+    void setDateTime(String dateString) {
         setDate(dateString);
         setTime(dateString);
     }
 
-    protected void setDate(String dateString) {
+    private void setDate(String dateString) {
         String[] tokens = dateString.split(" ");
         for (String token : tokens) {
             try {
@@ -45,7 +45,7 @@ public abstract class TaskWithAssociatedDate extends Task {
         }
     }
 
-    protected void setTime(String dateString) {
+    private void setTime(String dateString) {
         String[] tokens = dateString.split(" ");
         for (String token : tokens) {
             try {

@@ -72,7 +72,7 @@ public class Serializer {
      * @param t the Task object to be serialized
      * @return String representing the task
      */
-    public static String serializeTask(Task t) {
+    private static String serializeTask(Task t) {
         Type taskType = t.getClass();
         String serialized = "";
         if (taskType == ToDo.class) {

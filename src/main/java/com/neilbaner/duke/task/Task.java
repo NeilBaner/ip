@@ -1,17 +1,17 @@
 package com.neilbaner.duke.task;
 
 public abstract class Task {
-    protected String title;
-    protected String description;
-    protected boolean isDone;
+    private String title;
+    private String description;
+    private boolean isDone;
 
-    public Task(String title, String description) {
+    Task(String title, String description) {
         this.title = title;
         this.description = description;
         this.isDone = false;
     }
 
-    public Task(String title) {
+    Task(String title) {
         this.title = title;
         this.description = "";
         this.isDone = false;
