@@ -2,6 +2,9 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.ErrorMessages;
 
+/**
+ * This exception is thrown when the user does not enter an index to delete after the <code>done</code> command.
+ */
 public class BlankIndexToMarkException extends DukeException {
     public BlankIndexToMarkException() {
         super();
