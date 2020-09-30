@@ -5,13 +5,6 @@ public class Messages {
         System.out.println("____________________________________________________________");
     }
 
-    public static void printHello() {
-        printHorizontalLine();
-        System.out.println("Hello! I'm Duke. ");
-        System.out.println("What can I do for you?");
-        printHorizontalLine();
-    }
-
     public static void printHelp() {
         System.out.println("Here are all the commands I know. ");
         System.out.println("Adding a new to-do task: ");

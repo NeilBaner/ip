@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     public void loadState(TaskList list) throws NoSaveFileException, DeserializerException {
         File saveFile = new File(filePath);

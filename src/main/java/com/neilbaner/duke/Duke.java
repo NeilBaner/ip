@@ -10,9 +10,8 @@ import java.util.Scanner;
 import static com.neilbaner.duke.ui.Commands.EXIT_COMMAND;
 
 public class Duke {
-    public static TaskList list = new TaskList();
-
     public static final String SAVE_FILE_PATH = "dukesave.txt";
+    public static final TaskList list = new TaskList();
 
     public static void main(String[] args) {
         String input = "";
@@ -26,7 +25,7 @@ public class Duke {
                 input = k.nextLine();
                 try {
                     ui.executeCommand(input);
-                } catch(DukeException e) {
+                } catch (DukeException e) {
                     e.printErrorMessage(input);
                 }
             }

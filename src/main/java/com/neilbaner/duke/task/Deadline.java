@@ -15,7 +15,7 @@ public class Deadline extends TaskWithAssociatedDate {
 
     @Override
     public String toString() {
-        if(associatedDate != null) {
+        if (associatedDate != null) {
             return "[D]" + super.toString() + ", at " + associatedDate.format(DateTimeFormatter.ofPattern("dd/MM" +
                     "/yyyy"));
         }

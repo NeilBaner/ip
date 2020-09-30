@@ -8,7 +8,7 @@ public class MessageGenerator {
     public static String generateConfirmationMessage() {
         File confirmationMessagesFile = new File("src/main/java/com/neilbaner/duke/messages/confirmationmessages");
         File namesFile = new File("src/main/java/com/neilbaner/duke/messages/names");
-        String finalMessage = new String();
+        String finalMessage = "";
         try {
             Scanner messageScanner = new Scanner(confirmationMessagesFile);
             Scanner nameScanner = new Scanner(namesFile);

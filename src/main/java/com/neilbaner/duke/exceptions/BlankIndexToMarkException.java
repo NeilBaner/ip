@@ -6,6 +6,7 @@ public class BlankIndexToMarkException extends DukeException {
     public BlankIndexToMarkException() {
         super();
     }
+
     @Override
     public void printErrorMessage(String command) {
         ErrorMessages.printBlankIndexToMark();

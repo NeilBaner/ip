@@ -3,6 +3,7 @@ package com.neilbaner.duke.ui;
 import com.neilbaner.duke.exceptions.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class InputParser {
 
@@ -10,21 +11,21 @@ public class InputParser {
         try {
             int commandLength = Commands.ADD_TODO_COMMAND.length();
             String todoTitle = input.substring(commandLength + 1);
-            if(todoTitle.equals("")){
+            if (todoTitle.equals("")) {
                 throw new BlankTaskTitleException();
             }
             return todoTitle;
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new BlankTaskTitleException();
         }
     }
 
-    public static String getEventTitle(String input) throws BlankTaskTitleException{
+    public static String getEventTitle(String input) throws BlankTaskTitleException {
         try {
             int commandLength = Commands.ADD_EVENT_COMMAND.length();
             int delimiterIndex = input.indexOf(Commands.EVENT_AT_DELIMITER);
             String eventTitle = input.substring(commandLength + 1, delimiterIndex).strip();
-            if(eventTitle.equals("")) {
+            if (eventTitle.equals("")) {
                 throw new BlankTaskTitleException();
             }
             return eventTitle;
@@ -38,7 +39,7 @@ public class InputParser {
             int commandLength = Commands.ADD_DEADLINE_COMMAND.length();
             int delimiterIndex = input.indexOf(Commands.DEADLINE_BY_DELIMITER);
             String deadlineTitle = input.substring(commandLength, delimiterIndex).strip();
-            if(deadlineTitle.equals("")) {
+            if (deadlineTitle.equals("")) {
                 throw new BlankTaskTitleException();
             }
             return deadlineTitle;
@@ -52,7 +53,7 @@ public class InputParser {
             int delimiterLength = Commands.EVENT_AT_DELIMITER.length();
             int delimiterIndex = input.indexOf(Commands.EVENT_AT_DELIMITER);
             String eventTimeString = input.substring(delimiterIndex + delimiterLength).strip();
-            if(eventTimeString.equals("")) {
+            if (eventTimeString.equals("")) {
                 throw new BlankEventTimeException();
             }
             return eventTimeString;
@@ -66,20 +67,20 @@ public class InputParser {
             int delimiterLength = Commands.DEADLINE_BY_DELIMITER.length();
             int delimiterIndex = input.indexOf(Commands.DEADLINE_BY_DELIMITER);
             String dueDateString = input.substring(delimiterIndex + delimiterLength + 1).strip();
-            if(dueDateString.equals("")) {
+            if (dueDateString.equals("")) {
                 throw new BlankDeadlineDateException();
             }
             return dueDateString;
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BlankDeadlineDateException();
         }
     }
 
     public static int getIndexToMark(String input) throws IncorrectFormattingException, BlankIndexToMarkException {
-        try{
+        try {
             int commandLength = Commands.DONE_COMMAND.length();
             String indexAsString = input.substring(commandLength + 1);
-            if(indexAsString.equals("")) {
+            if (indexAsString.equals("")) {
                 throw new BlankIndexToMarkException();
             }
             return Integer.parseInt(indexAsString) - 1;
@@ -94,7 +95,7 @@ public class InputParser {
         try {
             int commandLength = Commands.DELETE_COMMAND.length();
             String indexAsString = input.substring(commandLength + 1);
-            if(indexAsString.equals("")) {
+            if (indexAsString.equals("")) {
                 throw new BlankIndexToDeleteException();
             }
             return Integer.parseInt(indexAsString) - 1;
@@ -109,24 +110,26 @@ public class InputParser {
         try {
             int beginIndex = Commands.FIND_COMMAND.length() + 1;
             String key = input.substring(beginIndex);
-            if(key.equals("")){
+            if (key.equals("")) {
                 throw new BlankSearchKeyException();
             }
             return key;
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BlankSearchKeyException();
         }
     }
 
-    public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException, BlankBeforeAtDateException {
+    public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException, BlankBeforeAtDateException, BadDateFormatException {
         try {
             String dateString = input.substring(command.length() + 1);
-            if(dateString.strip().equals("")) {
+            if (dateString.strip().equals("")) {
                 throw new BlankBeforeAtDateException();
             }
             return LocalDate.parse(dateString);
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectFormattingException();
+        } catch (DateTimeParseException e) {
+            throw new BadDateFormatException();
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.neilbaner.duke.messages;
 
-public class OperationMessages extends Messages{
+public class OperationMessages extends Messages {
 
 
     public static void printGoodBye() {
@@ -51,4 +51,10 @@ public class OperationMessages extends Messages{
     }
 
 
+    public static void printHello() {
+        printHorizontalLine();
+        System.out.println("Hello! I'm Duke. ");
+        System.out.println("What can I do for you?");
+        printHorizontalLine();
+    }
 }

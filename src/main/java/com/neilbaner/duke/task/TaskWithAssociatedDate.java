@@ -6,15 +6,6 @@ import java.time.LocalTime;
 
 public abstract class TaskWithAssociatedDate extends Task {
     protected String associatedDateString;
-
-    public LocalDate getAssociatedDate() {
-        return associatedDate;
-    }
-
-    public LocalTime getAssociatedTime() {
-        return associatedTime;
-    }
-
     protected LocalDate associatedDate;
     protected LocalTime associatedTime;
 
@@ -23,11 +14,18 @@ public abstract class TaskWithAssociatedDate extends Task {
         this.associatedDateString = associatedDate;
         setDateTime(associatedDate);
     }
-
     public TaskWithAssociatedDate(String title, String description, String associatedDate) {
         super(title, description);
         this.associatedDateString = associatedDate;
         setDateTime(associatedDate);
+    }
+
+    public LocalDate getAssociatedDate() {
+        return associatedDate;
+    }
+
+    public LocalTime getAssociatedTime() {
+        return associatedTime;
     }
 
     protected void setDateTime(String dateString) {
@@ -42,7 +40,7 @@ public abstract class TaskWithAssociatedDate extends Task {
                 associatedDate = LocalDate.parse(token);
                 return;
             } catch (DateTimeException e) {
-                continue;
+
             }
         }
     }
@@ -54,17 +52,12 @@ public abstract class TaskWithAssociatedDate extends Task {
                 associatedTime = LocalTime.parse(token);
                 return;
             } catch (DateTimeException e) {
-                continue;
+
             }
         }
     }
 
     public String getAssociatedDateString() {
         return associatedDateString;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

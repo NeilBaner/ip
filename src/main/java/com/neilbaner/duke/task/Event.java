@@ -16,7 +16,7 @@ public class Event extends TaskWithAssociatedDate {
 
     @Override
     public String toString() {
-        if(associatedDate != null) {
+        if (associatedDate != null) {
             return "[E]" + super.toString() + ", at " + associatedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
         return "[E]" + super.toString() + ", at " + associatedDateString;

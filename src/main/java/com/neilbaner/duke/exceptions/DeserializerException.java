@@ -6,6 +6,7 @@ public class DeserializerException extends DukeException {
     public DeserializerException() {
         super();
     }
+
     @Override
     public void printErrorMessage(String command) {
         ErrorMessages.printDeserializerError();

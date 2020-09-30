@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserInterface {
-    TaskList taskList;
+    final TaskList taskList;
 
     public UserInterface(TaskList taskList) {
         this.taskList = taskList;

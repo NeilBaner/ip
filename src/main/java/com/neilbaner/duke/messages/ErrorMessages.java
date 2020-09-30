@@ -1,6 +1,6 @@
 package com.neilbaner.duke.messages;
 
-public class ErrorMessages extends Messages{
+public class ErrorMessages extends Messages {
 
     public static void printBadDateFormat() {
         System.err.println("The date must be formatted as ISO8601, that is, as YYYY-MM-DD. ");
