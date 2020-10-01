@@ -1,6 +1,8 @@
 package com.neilbaner.duke.exceptions;
 
 /**
+ * @author Neil Banerjee
+ * @version 1.0
  * Superclass for all the types of exceptions Duke can throw.
  */
 public abstract class DukeException extends Exception {

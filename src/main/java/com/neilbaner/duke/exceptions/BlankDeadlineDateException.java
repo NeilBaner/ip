@@ -3,6 +3,8 @@ package com.neilbaner.duke.exceptions;
 import com.neilbaner.duke.messages.ErrorMessages;
 
 /**
+ * @author Neil Banerjee
+ * @version 1.0
  * This exception is thrown when the user doesn't enter a date after <code>/by</code> in the <code>deadline</code>
  * command.
  */
