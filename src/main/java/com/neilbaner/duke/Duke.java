@@ -15,23 +15,28 @@ class Duke {
 
     public static void main(String[] args) {
         String input = "";
+        Storage storage = new Storage(SAVE_FILE_PATH);
+        UserInterface ui = new UserInterface(list);
+        Scanner k = new Scanner(System.in);
         try {
-            Storage storage = new Storage(SAVE_FILE_PATH);
-            UserInterface ui = new UserInterface(list);
-            Scanner k = new Scanner(System.in);
             storage.loadState(list);
-            ui.startUI();
-            while (!input.equals(EXIT_COMMAND)) {
-                input = k.nextLine();
-                try {
-                    ui.executeCommand(input);
-                } catch (DukeException e) {
-                    e.printErrorMessage(input);
-                }
+        } catch (DukeException e) {
+            e.printErrorMessage("");
+        }
+        ui.startUI();
+        while (!input.equals(EXIT_COMMAND)) {
+            input = k.nextLine();
+            try {
+                ui.executeCommand(input);
+            } catch (DukeException e) {
+                e.printErrorMessage(input);
             }
+        }
+        try {
             storage.saveState(list);
         } catch (DukeException e) {
-            e.printErrorMessage(input);
+            e.printErrorMessage("");
         }
     }
 }
+
