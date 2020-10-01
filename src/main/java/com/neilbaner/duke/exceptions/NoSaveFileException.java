@@ -9,6 +9,6 @@ public class NoSaveFileException extends DukeException {
 
     @Override
     public void printErrorMessage(String command) {
-        ErrorMessages.printSaveError();
+        ErrorMessages.printReadError();
     }
 }

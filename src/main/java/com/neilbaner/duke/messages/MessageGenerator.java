@@ -1,32 +1,33 @@
 package com.neilbaner.duke.messages;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 public class MessageGenerator {
     public static String generateConfirmationMessage() {
-        File confirmationMessagesFile = new File("src/main/java/com/neilbaner/duke/messages/confirmationmessages");
-        File namesFile = new File("src/main/java/com/neilbaner/duke/messages/names");
+        ClassLoader classLoader = MessageGenerator.class.getClassLoader();
+        InputStream confirmationsInputStream = classLoader.getResourceAsStream("txt/confirmationmessages");
+        InputStream namessInputStream = classLoader.getResourceAsStream("txt/names");
         String finalMessage = "";
         try {
-            Scanner messageScanner = new Scanner(confirmationMessagesFile);
-            Scanner nameScanner = new Scanner(namesFile);
 
-            int numberOfMessages = Integer.parseInt(messageScanner.nextLine());
-            int numberOfNames = Integer.parseInt(nameScanner.nextLine());
+            BufferedReader confirmationsReader = new BufferedReader(new InputStreamReader(confirmationsInputStream));
+            BufferedReader namesReader = new BufferedReader(new InputStreamReader(namessInputStream));
+
+            int numberOfMessages = Integer.parseInt(confirmationsReader.readLine());
+            int numberOfNames = Integer.parseInt(namesReader.readLine());
 
             int messageToDisplay = (int) (Math.random() * (numberOfMessages - 1));
             int nameToDisplay = (int) (Math.random() * (numberOfNames - 1));
 
-            String chosenMessage = messageScanner.nextLine();
-            String chosenName = nameScanner.nextLine();
+            String chosenMessage = confirmationsReader.readLine();
+            String chosenName = namesReader.readLine();
 
             for (int i = 0; i < messageToDisplay; i++) {
-                chosenMessage = messageScanner.nextLine();
+                chosenMessage = confirmationsReader.readLine();
             }
             for (int i = 0; i < nameToDisplay; i++) {
-                chosenName = nameScanner.nextLine();
+                chosenName = namesReader.readLine();
             }
 
             finalMessage = chosenMessage + ", " + chosenName + ". ";
