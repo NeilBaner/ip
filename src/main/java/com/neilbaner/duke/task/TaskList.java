@@ -79,9 +79,11 @@ public class TaskList {
         for (Task t : tasks) {
             if (t instanceof TaskWithAssociatedDate) {
                 TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate) t;
-                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
-                if (dateOfCurrentTask.isBefore(dateBeforeWhich)) {
-                    allTasksBeforeList.add(t);
+                if (tWithAssociatedDate.getAssociatedDate() != null) {
+                    LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+                    if (dateOfCurrentTask.isBefore(dateBeforeWhich)) {
+                        allTasksBeforeList.add(t);
+                    }
                 }
             }
         }
@@ -98,9 +100,11 @@ public class TaskList {
         for (Task t : tasks) {
             if (t instanceof TaskWithAssociatedDate) {
                 TaskWithAssociatedDate tWithAssociatedDate = (TaskWithAssociatedDate) t;
-                LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
-                if (dateOfCurrentTask.isEqual(dateBeforeWhich)) {
-                    allTasksOnList.add(t);
+                if(tWithAssociatedDate.getAssociatedDate() != null) {
+                    LocalDate dateOfCurrentTask = tWithAssociatedDate.getAssociatedDate();
+                    if (dateOfCurrentTask.isEqual(dateBeforeWhich)) {
+                        allTasksOnList.add(t);
+                    }
                 }
             }
         }
