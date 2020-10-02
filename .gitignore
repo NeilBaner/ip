@@ -17,5 +17,3 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 dukesave.txt
-
-src/main/java/META-INF/MANIFEST.MF
