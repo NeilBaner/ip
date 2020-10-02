@@ -241,7 +241,36 @@ help
 Expected outcome:
 
 ```
-outcome
+help
+Here are all the commands I know. 
+Adding a new to-do task: 
+todo <todoname>
+Adding a new event: 
+event <eventname> /at <eventtime>
+Adding a new deadline: 
+deadline <deadlinename> /by <deadlineduedate>
+Viewing all the tasks: 
+list
+Deleting a task: 
+delete <tasknumber>
+<tasknumber> represents the number associated with the task, as seen on screen. 
+Marking a task as done: 
+done <tasknumber>
+<tasknumber> represents the number associated with the task, as seen on screen. 
+Getting all tasks before a date: 
+before YYYY-MM-DD
+YYYY-MM-DD is the date before which you want to find tasks.
+Getting all tasks at a date: 
+at YYYY-MM-DD
+YYYY-MM-DD is the date at which you want to find tasks.
+Searching for tasks: 
+find <key>
+<key> represents whatever you want to search for. 
+Accessing help: 
+help
+Quitting: 
+bye
+Read the full user guide at https://neilbaner.github.io/ip/
 ```
 
 #### `bye` - Quit Duke and save your tasks
