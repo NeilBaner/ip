@@ -18,10 +18,23 @@ public class Messages {
         printEventSyntax();
         System.out.println("Adding a new deadline: ");
         printDeadlineSyntax();
+        System.out.println("Viewing all the tasks: ");
+        printListSyntax();
+        System.out.println("Deleting a task: ");
+        printDeleteSyntax();
         System.out.println("Marking a task as done: ");
         printDoneSyntax();
+        System.out.println("Getting all tasks before a date: ");
+        printBeforeSyntax();
+        System.out.println("Getting all tasks at a date: ");
+        printAtSyntax();
+        System.out.println("Searching for tasks: ");
+        printFindSyntax();
         System.out.println("Accessing help: ");
         printHelpSyntax();
+        System.out.println("Quitting: ");
+        printByeSyntax();
+        System.out.println("Read the full user guide at https://neilbaner.github.io/ip/");
     }
 
     private static void printTodoSyntax() {
@@ -63,5 +76,13 @@ public class Messages {
 
     private static void printHelpSyntax() {
         System.out.println("help");
+    }
+
+    private static void printListSyntax() {
+        System.out.println("list");
+    }
+
+    private static void printByeSyntax() {
+        System.out.println("bye");
     }
 }
