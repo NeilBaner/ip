@@ -29,6 +29,16 @@ An Event is a task which will be done at a certain date and time. For example, y
   
 ### Personal, unique messages
 
+Duke randomly generates messages to address you differently every time you use it!
+
+### Organising tasks
+
+See a list of all your tasks!
+
+Find tasks easily by their name or their date!
+
+Mark tasks as done or delete them! 
+
 ## Usage
 
 ### Adding new tasks
