@@ -2,6 +2,12 @@ package com.neilbaner.duke.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * Represents a task of type Deadline. Contains the title, the associated due date, and whether or not the task is
+ * done (false by default).
+ */
 public class Deadline extends TaskWithAssociatedDate {
 
     public Deadline(String title, String dueDate) {
