@@ -1,5 +1,10 @@
 package com.neilbaner.duke.messages;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * A collection of various messages printed throughout the operation of Duke.
+ */
 public class Messages {
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
