@@ -31,14 +31,232 @@ An Event is a task which will be done at a certain date and time. For example, y
 
 ## Usage
 
-### `Keyword` - Describe action
+### Adding new tasks
 
-Describe action and its outcome.
+#### `todo` - Adding a new todo task
+
+Add a new todo task, with a specified title. 
+
+Syntax: `todo <taskname>`
 
 Example of usage: 
 
-`keyword (optional arguments)`
+```
+todo learn to solve a rubik's cube
+```
 
 Expected outcome:
 
-`outcome`
+```
+____________________________________________________________
+Understood, chief. I've added the following to-do to your list: learn to solve a rubik's cube
+____________________________________________________________
+```
+
+NB the message may be different as it is randomly generated :D
+
+#### `event` - Adding a new event task
+
+Add a new event, with a specified title and a date. If the date provided is in ISO8601 format, it will be added to
+ the task list as a date, otherwise it will be added as a string of text. If it is added as a date, you will be able
+  to find the task when searching for tasks before or at a certain date. 
+  
+  Syntax: `event <eventtitle> /at <date>`
+
+Example of usage: 
+
+```
+event meet Prof /at 2020-10-10
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+Of course, kahuna. I've added this event to your list: meet Prof
+____________________________________________________________
+```
+
+NB the message may be different as it is randomly generated :D
+
+#### `deadline` - Adding a new deadline
+
+Add a new deadline, with a specified title and a due date. If the date provided is in ISO8601 format, it will be
+ added to
+ the task list as a date, otherwise it will be added as a string of text. If it is added as a date, you will be able
+  to find the task when searching for tasks before or at a certain date. 
+
+Example of usage: 
+
+```
+deadline submit iP /by 2020-10-02
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+Understood, kahuna. Added a new deadline to your list, titled : submit iP
+____________________________________________________________
+```
+
+NB the message may be different as it is randomly generated :D
+
+### Finding existing tasks
+
+#### `list` - List all the tasks added
+
+Example of usage: 
+
+```
+list
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+[T][ ] learn to solve a rubik's cube
+[E][ ] meet Prof, at 10/10/2020
+[D][ ] submit iP, at 02/10/2020
+ ____________________________________________________________
+```
+
+#### `find` - Find all tasks matching a search key
+
+Find all the tasks that contain a certain string of characters, the search key, in the task title. 
+
+Syntax: `find <searchkey>` 
+
+Example of usage: 
+
+```
+find rubik
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+[T][ ] learn to solve a rubik's cube
+____________________________________________________________
+```
+
+NB this will be different depending on the tasks you have added!
+
+#### `before` - Find all tasks before a certain date
+
+Find all the tasks before a certain date, specified in ISO8601 YYYY-MM-DD format. The tasks must have been added with
+ a properly formatted date before. 
+
+Syntax: `before YYYY-MM-DD`
+
+Example of usage: 
+
+```
+before 2020-10-05
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+[D][ ] submit iP, at 02/10/2020
+____________________________________________________________
+```
+
+NB this will be different depending on the tasks you have added!
+
+#### `at` - Find all tasks at a certain date
+
+Find all the tasks before a certain date, specified in ISO8601 YYYY-MM-DD format. The tasks must have been added with
+ a properly formatted date before. 
+
+Example of usage: 
+
+```
+at 2020-10-10
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+[E][ ] meet Prof, at 10/10/2020
+____________________________________________________________
+```
+
+### Managing existing tasks
+
+#### `done` - Mark a task as done
+
+Mark the task at the specified position on the list as done. 
+
+Syntax: `done <number>`
+
+Example of usage: 
+
+```
+done 2
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+Gotcha, kahuna. meet Prof marked as done.
+____________________________________________________________
+```
+
+#### `delete` - Describe action
+
+Delete at the specified position on the list. 
+
+Syntax: `delete <number>`
+
+Example of usage: 
+
+```
+delete 1
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+Of course, kahuna. [T][ ] learn to solve a rubik's cube deleted. 
+____________________________________________________________
+```
+
+### Others
+
+#### `help` - Get help about Duke and learn the different commands
+
+Example of usage: 
+
+```
+help
+```
+
+Expected outcome:
+
+```
+outcome
+```
+
+#### `bye` - Quit Duke and save your tasks
+
+Example of usage: 
+
+```
+bye
+```
+
+Expected outcome:
+
+```
+____________________________________________________________
+Bye. Hope to see you again soon!
+Shutting down...
+____________________________________________________________
+```
