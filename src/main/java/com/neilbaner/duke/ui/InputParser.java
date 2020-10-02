@@ -5,8 +5,20 @@ import com.neilbaner.duke.exceptions.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class InputParser {
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * A collection of methods to parse the input from the user and get the relevant information from the entered commands.
+ */
 
+public class InputParser {
+    /**
+     * Gets the title of a ToDo to be added, from the entered command.
+     * @param input the command that has been input to add a new todo, directly from the user. Precondition: must be
+     *              a todo command.
+     * @return the title of the ToDo to be added
+     * @throws BlankTaskTitleException if the title is blank/has not been entered.
+     */
     public static String getTodoTitle(String input) throws BlankTaskTitleException {
         try {
             int commandLength = Commands.ADD_TODO_COMMAND.length();
@@ -20,6 +32,13 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the title of an Event to be added, from the entered command.
+     * @param input the command that has been input to add a new event, directly from the user. Precondition: must be
+     *             an event command
+     * @return the title of the Event to be added
+     * @throws BlankTaskTitleException if the title is blank/has not been entered
+     */
     public static String getEventTitle(String input) throws BlankTaskTitleException {
         try {
             int commandLength = Commands.ADD_EVENT_COMMAND.length();
@@ -34,6 +53,13 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the title of a Deadline to be added, from the entered command.
+     * @param input the command that has been input to add a new Deadline, stripped user input. Precondition: must be
+     *             a deadline command
+     * @return the title of the Deadline to be added
+     * @throws BlankTaskTitleException if the title is blank/has not been entered
+     */
     public static String getDeadlineTitle(String input) throws BlankTaskTitleException {
         try {
             int commandLength = Commands.ADD_DEADLINE_COMMAND.length();
@@ -48,10 +74,20 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the date of an Event to be added, from the entered command.
+     * @param input the command that has been input to add a new Event, stripped user input. Precondition: must be an
+     *             event command.
+     * @return the part of the command that corresponds to the event time as a String
+     * @throws BlankEventTimeException if the event at is blank.
+     */
     public static String getEventTime(String input) throws BlankEventTimeException {
         try {
             int delimiterLength = Commands.EVENT_AT_DELIMITER.length();
             int delimiterIndex = input.indexOf(Commands.EVENT_AT_DELIMITER);
+            if(delimiterIndex == -1) {
+                throw new BlankEventTimeException();
+            }
             String eventTimeString = input.substring(delimiterIndex + delimiterLength).strip();
             if (eventTimeString.equals("")) {
                 throw new BlankEventTimeException();
@@ -62,10 +98,20 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the date of an Deadline to be added, from the entered command.
+     * @param input the command that has been input to add a new Deadline, stripped user input. Precondition: must be
+     *             a deadline command.
+     * @return the part of the command that corresponds to the deadline time as a String
+     * @throws BlankEventTimeException if the deadline by is blank.
+     */
     public static String getDeadlineDueDate(String input) throws BlankDeadlineDateException {
         try {
             int delimiterLength = Commands.DEADLINE_BY_DELIMITER.length();
             int delimiterIndex = input.indexOf(Commands.DEADLINE_BY_DELIMITER);
+            if(delimiterIndex == -1) {
+                throw new BlankDeadlineDateException();
+            }
             String dueDateString = input.substring(delimiterIndex + delimiterLength + 1).strip();
             if (dueDateString.equals("")) {
                 throw new BlankDeadlineDateException();
@@ -76,6 +122,13 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the index of the task to be marked as Done.
+     * @param input the command that has been entered by the user, stripped. Precondition: must be a done command.
+     * @return the index of the task to be marked as done
+     * @throws IncorrectFormattingException if the index is not a number, or some other error.
+     * @throws BlankIndexToMarkException if the index is not specified
+     */
     public static int getIndexToMark(String input) throws IncorrectFormattingException, BlankIndexToMarkException {
         try {
             int commandLength = Commands.DONE_COMMAND.length();
@@ -91,6 +144,13 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the index of the task to be deleted.
+     * @param input the command that has been entered by the user, stripped. Precondition: must be a delete command.
+     * @return the index of the task to be deleted
+     * @throws IncorrectFormattingException if the index is not a number, or some other error.
+     * @throws BlankIndexToDeleteException if the index is not specified
+     */
     public static int getIndexToDelete(String input) throws IncorrectFormattingException, BlankIndexToDeleteException {
         try {
             int commandLength = Commands.DELETE_COMMAND.length();
@@ -106,6 +166,12 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the search key to search for
+     * @param input the command that has been entered by the user, stripped. Precondition: must be a find command.
+     * @return the key to search for
+     * @throws BlankSearchKeyException if the user has not entered a search key.
+     */
     public static String getSearchKey(String input) throws BlankSearchKeyException {
         try {
             int beginIndex = Commands.FIND_COMMAND.length() + 1;
@@ -119,6 +185,15 @@ public class InputParser {
         }
     }
 
+    /**
+     * Gets the date to search for
+     * @param input the command that has been entered by the user, stripped.
+     * @param command the type of command (before or at) that has been entered.
+     * @return the date that has been input
+     * @throws IncorrectFormattingException if the command is incorrectly formatted
+     * @throws BlankBeforeAtDateException if the date is blank
+     * @throws BadDateFormatException if the date is incorrectly formatted
+     */
     public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException, BlankBeforeAtDateException, BadDateFormatException {
         try {
             String dateString = input.substring(command.length() + 1);

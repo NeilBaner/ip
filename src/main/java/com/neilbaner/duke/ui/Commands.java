@@ -1,5 +1,10 @@
 package com.neilbaner.duke.ui;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * A collection of constants for the various commands known by Duke.
+ */
 public class Commands {
     public static final String EVENT_AT_DELIMITER = "/at";
     public static final String DEADLINE_BY_DELIMITER = "/by";

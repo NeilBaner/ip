@@ -1,5 +1,11 @@
 package com.neilbaner.duke.messages;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * Extends the Messages class, includes methods for printing various error messages. Should be called by
+ * DukeExceptions only.
+ */
 public class ErrorMessages extends Messages {
 
     public static void printBadDateFormat() {

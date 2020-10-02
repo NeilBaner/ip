@@ -1,7 +1,12 @@
 package com.neilbaner.duke.messages;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * Extends the Messages class, includes methods for printing various operational messages. Should be printed during
+ * normal, non-error operation of Duke.
+ */
 public class OperationMessages extends Messages {
-
 
     public static void printGoodBye() {
         printHorizontalLine();

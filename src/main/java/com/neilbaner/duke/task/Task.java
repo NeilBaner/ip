@@ -1,5 +1,10 @@
 package com.neilbaner.duke.task;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * A class to represent any sort of Task. Any task will contain a title and whether or not the task is done.
+ */
 public abstract class Task {
     private String title;
     private String description;

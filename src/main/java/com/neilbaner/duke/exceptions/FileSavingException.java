@@ -2,6 +2,12 @@ package com.neilbaner.duke.exceptions;
 
 import com.neilbaner.duke.messages.ErrorMessages;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * This exception is thrown when there is an error saving the save file for Duke. It should not usually be thrown in
+ * normal operation.
+ */
 public class FileSavingException extends DukeException {
     public FileSavingException() {
         super();
