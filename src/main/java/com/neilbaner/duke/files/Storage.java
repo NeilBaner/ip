@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
+ * @author Neil Banerjee
+ * @version 1.0
  * This class is used for file storage operations to save and load Duke's state to and from a text file stored on the
  * disk.
  */

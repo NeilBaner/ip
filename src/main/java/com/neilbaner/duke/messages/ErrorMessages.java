@@ -1,5 +1,10 @@
 package com.neilbaner.duke.messages;
 
+/**
+ * @author Neil Banerjee
+ * @version 1.0
+ * 
+ */
 public class ErrorMessages extends Messages {
 
     public static void printBadDateFormat() {
