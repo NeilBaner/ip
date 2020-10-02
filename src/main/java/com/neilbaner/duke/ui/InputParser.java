@@ -192,7 +192,7 @@ public class InputParser {
      * @return the date that has been input
      * @throws IncorrectFormattingException if the command is incorrectly formatted
      * @throws BlankBeforeAtDateException if the date is blank
-     * @throws BadDateFormatException if the
+     * @throws BadDateFormatException if the date is incorrectly formatted
      */
     public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException, BlankBeforeAtDateException, BadDateFormatException {
         try {
